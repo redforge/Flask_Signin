@@ -7,16 +7,21 @@ from app.configs.constants import id_length
 class Camper(Base):
     __tablename__ = 'campers'
     id = Column(String(id_length), primary_key=True, unique=True)
-    firstname = Column(String(40))
-    lastname  = Column(String(80))
+    firstname = Column(String(50))
+    lastname  = Column(String(100))
+    location  = Column(String(75))
+    note  = Column(String(250))
+
 
     def __init__(self, id=None, firstname=None, lastname=None):
         self.id        = id
         self.firstname = firstname
         self.lastname  = lastname
+        self.location  = 'Not Yet Set'
+        self.note      = ''
 
     def __repr__(self):
-        return '<Camper %r>' % (self.name)
+        return '<Camper %r>' % (self.firstname)
 
 #This was an example, I'm going to leave it in for now
 '''class User(Base):

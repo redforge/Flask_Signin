@@ -1,7 +1,8 @@
 from flask import render_template
 from app import app
 from sqlalchemy import Column, Integer, String
-from app.data.database import Base, db_session, init_db
+from app.data.database import Base, db_session
+from app.data.check import check_db
 from app.data.models import Camper
 from app.data.camper_editing import *
 import os.path
@@ -17,10 +18,8 @@ def shutdown_session(exception=None):
 def index():
 	print ('shit')
 	#If no database is found, make one
-	if (not os.path.isfile('./data/current.db')):
-		print('No database found. Making a new one...')
-		init_db()
-
+	check_db();
+	print ('fucc')
 	#add a fake camper for testing
 	add_camper('oofie', 'twoof')
 	print (db_session.query(Camper).count())
@@ -28,4 +27,4 @@ def index():
 	#grab camper data
 	camper_data = db_session.query(Camper)
 
-	return render_template('testpage.html', campers=camper_data)
+	return render_template('viewdb.html', campers=camper_data)

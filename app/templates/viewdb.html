@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1> Full camper database shown below </h1>
+	<table>
+		<thead>
+			<th class="text-center"> ID </th>
+			<th class="text-right "> First Name</th>
+			<th class="text-left  "> Last Name(s)</th>
+			<th class="text-left  "> Location</th>
+			<th class="text-left  "> Notes</th>
+		</thead>
+		<tbody>
+			{% for camper in campers %}
+			<tr>
+				<td class="text-center"> {{camper.id}} </td>
+				<td class="text-right "> {{camper.firstname}} </td>
+				<td class="text-left  "> {{camper.lastname}} </td>
+				<td class="text-left  "> {{camper.location}} </td>
+				<td class="text-left  "> {{camper.notes}} </td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
