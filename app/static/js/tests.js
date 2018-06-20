@@ -1,4 +1,4 @@
-const API_URL = '/api/scan/process';
+const API_URL = '/api/test/print';
 //var recentList = document.getElementById('recentScans');
 
 const handleResponse = ({ target }) => {

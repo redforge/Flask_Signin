@@ -32,8 +32,8 @@ def scan():
 
 	return render_template('scanningpage.html', lastscan=lastscan)
 
-@app.route('/api', methods = ['POST'])
-def api():
+@app.route('/api/scan/process', methods = ['POST'])
+def api_scan_process():
 	getId = request.values.get('input', '')
 	# Do something useful here...
 	camper = db_session.query(Camper).get(getId)
