@@ -4,7 +4,6 @@
 
 }
 
-
 table {
   font-size: 20px;
   border-collapse: collapse;
@@ -54,4 +53,12 @@ thead th:last-child {
 
 .text-right {
     text-align: right;
+}
+
+#topcheck, #listcheck, .check {
+  position: relative;
+  text-align: center;
+  //width: 20px;
+  margin: 0;
+  padding: 0;
 }

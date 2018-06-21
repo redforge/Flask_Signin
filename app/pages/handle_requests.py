@@ -9,11 +9,27 @@ import os.path
 
 @app.route('/api/test/print', methods = ['POST'])
 def api_print():
-	getId = request.values.get('input', '')
-	# Do something useful here...
-	camper = db_session.query(Camper).get(getId)
+	out = request.values.get('input')
+	print (out)
+	return "success"
 
-	out = "<tr>  <td>{}</td> <td>{}</td> <td>{}</td>  </tr>".format(camper.id, camper.firstname, camper.lastname)
+@app.route('/print')
+def print_page():
+	return render_template('testingform.html')
 
-	print ("{} {} (id:{})".format(camper.firstname, camper.lastname, camper.id))
-	return out
+@app.route('/api/edit', methods = ['POST'])
+def api_edit():
+	field_to_set = request.values.get('field-to-set')
+	new_value = request.values.get('new-value')
+	ids_to_apply_to = request.values.get('ids-to-apply-to')
+
+	ids_parsed = ids_to_apply_to.split(',')
+
+	for id in ids_parsed:
+		camper = db_session.query(Camper).get(id)
+		print(id);
+		if (field_to_set == "location"):
+			camper.location = new_value
+
+	db_session.commit()
+	return "success"

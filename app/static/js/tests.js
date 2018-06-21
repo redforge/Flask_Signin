@@ -3,25 +3,20 @@ const API_URL = '/api/test/print';
 
 const handleResponse = ({ target }) => {
   // when flask responds...
-  document.getElementById('recentScans').innerHTML += (target.responseText);
-
   console.log(target.responseText);
 };
 
-var list = document.getElementById('recentScans');
+$(document).ready(function() {
+  $('#form1').submit(function () {
+   printForm();
+   return false;
+  });
+});
 
-let options = {
-  continuous: true,
-  video: document.getElementById('preview'),
-  mirror: true,
-  captureImage: false,
-  backgroundScan: false, //run if tab isnt active
-  refractoryPeriod: 50,  //how much time between repeat scans in ms
-  scanPeriod: 1
-};
-let scanner = new Instascan.Scanner(options);
-scanner.addListener('scan', function (content) {
-  //Executes upon a valid scan
+function printForm() {
+  var content = [document.forms["form1"]["text-to-print"].value];
+  console.log('printing: ' + content);
+
   const xhr = new XMLHttpRequest();
   const data = new FormData();
 
@@ -30,14 +25,5 @@ scanner.addListener('scan', function (content) {
   xhr.open('POST', API_URL);
   xhr.send(data);
 
-  console.log(content);
-});
-Instascan.Camera.getCameras().then(function (cameras) {
-  if (cameras.length > 0) {
-    scanner.start(cameras[0]);
-  } else {
-    console.error('No cameras found.');
-  }
-}).catch(function (e) {
-  console.error(e);
-});
+  return false;
+}

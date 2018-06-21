@@ -1,7 +1,14 @@
-{% extends base.html %}
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Testing Page</title>
+  <script src="{{ url_for('static', filename='js/tests.js') }}"></script>
+{% endblock %}
+
 
 {% block content %}
   <form id="form1">
-
-
+    <input type="text" name="text-to-print">
+    <input type="submit" name="submit-print" class="submit">
+  </form>
 {% endblock %}

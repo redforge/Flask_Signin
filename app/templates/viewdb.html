@@ -1,9 +1,28 @@
 {% extends "base.html" %}
 
+{% block head %}
+	<title>Main Page</title>
+	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-	<h1> Full camper database shown below </h1>
+	<h1> Basic Actions </h1>
+	<form id="actionsForm">
+		<select id="actionSelect">
+			<option value="lmain"> Main Location </option>
+			<option value="lsec">  Second Location </option>
+			<option value="l3ree"> Third Location </option>
+		</select>
+		<input type="submit" name="submit-change" class="submit">
+	</form>
+
+	<div id="actionStatus">
+		<!--Left empty for js-->
+	</div>
+	<h1> All Camper Info </h1>
 	<table>
 		<thead>
+			<th class="check"> <input type="checkbox"> </th>
 			<th class="text-center"> ID </th>
 			<th class="text-right "> First Name</th>
 			<th class="text-left  "> Last Name(s)</th>
@@ -11,15 +30,18 @@
 			<th class="text-left  "> Notes</th>
 		</thead>
 		<tbody>
-			{% for camper in campers %}
-			<tr>
-				<td class="text-center"> {{camper.id}} </td>
-				<td class="text-right "> {{camper.firstname}} </td>
-				<td class="text-left  "> {{camper.lastname}} </td>
-				<td class="text-left  "> {{camper.location}} </td>
-				<td class="text-left  "> {{camper.notes}} </td>
-			</tr>
-			{% endfor %}
+			<form id="camperList">
+				{% for camper in campers %}
+				<tr>
+					<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}"></td>
+					<td class="text-center"> {{camper.id}} </td>
+					<td class="text-right "> {{camper.firstname}} </td>
+					<td class="text-left  "> {{camper.lastname}} </td>
+					<td class="text-left  "> {{camper.location}} </td>
+					<td class="text-left  "> {{camper.notes}} </td>
+				</tr>
+				{% endfor %}
+			</form>
 		</tbody>
 	</table>
 {% endblock %}

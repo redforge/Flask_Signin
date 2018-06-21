@@ -28,8 +28,3 @@ def index():
 	camper_data = db_session.query(Camper)
 
 	return render_template('viewdb.html', campers=camper_data)
-
-#test page
-@app.route('/print')
-def index():
-	return render_template('testform.html')
