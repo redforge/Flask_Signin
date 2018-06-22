@@ -1,4 +1,5 @@
 const API_URL = "/api/edit";
+const ADD_LIST_ENTRY = "<input name='new-fn' type='text'> <input name='new-ln' type='text'>"
 shouldReload = false;
 
 $(document).ready(function() {
@@ -34,7 +35,7 @@ $(document).ready(function() {
 
 });
 
-//Called when the server responds
+//Called when the server responds to a request
 const handleResponse = ({ target }) => {
   //"Success" indicates no error, anything else is assumed to be an error.
   console.log(target.responseText);
@@ -48,14 +49,16 @@ const handleResponse = ({ target }) => {
   }
 };
 
-//Called when the action (e.g. Sign out) is changed
+//Fuction called by the page, casts the value and sends it to the fuction below
 function changeActionMeta(e) {
   changeAction(""+e.value);
 }
+//Called when the action (e.g. Sign out) is changed
 function changeAction(value) {
   //Hide everything
   document.getElementById("signin-options").style.display= "none";
   document.getElementById("remove-confirm").style.display= "none";
+  document.getElementById("add-options").style.display= "none";
 
   //Unhide relevant things
   switch (value) {
@@ -70,9 +73,21 @@ function changeAction(value) {
       document.getElementById("remove-confirm").style.display= "";
       break;
 
+    case "add":
+      document.getElementById("add-options").style.display= "";
+      document.getElementById("add-list").innerHTML = "";
+      appendNewEntry();
+      break;
+
     default:
       console.log("Invalid Action")
   }
+}
+
+//Add entry to the 'add new' list
+
+function appendNewEntry() {
+  document.getElementById("add-list").innerHTML += ADD_LIST_ENTRY;
 }
 
 //Sets the visibility of all elements of a class
@@ -92,10 +107,12 @@ function normalCheck(cb) {
   document.getElementById("select-all-box").checked = false;
 }
 
-function setNote(id, text, success) {
+//Sets the innerHTML of a span/div, used to make code slightly neater
+function setNote(id, text) {
   document.getElementById(id).innerHTML = text
 }
 
+//Sets all the checkboxes to the same value, called when the top box is toggled
 function checkAll(cb) {
   var checkBoxes = document.forms["camperList"].elements["select-box"];
   //cb.checked = !cb.checked;
@@ -104,16 +121,19 @@ function checkAll(cb) {
   }
 }
 
+//Grab all IDs that are currently checked/selected
 function grabIds() {
   var checkBoxes = document.forms["camperList"].elements["select-box"];
   var checkedIds = [];
   for(var i = 0; i<checkBoxes.length; i++) {
+    console.log('lol');
     if (checkBoxes[i].checked) {
       //Values defined to be IDs by html template
       checkedIds.push(checkBoxes[i].value);
     }
   }
   console.log (checkedIds);
+  console.log (checkBoxes.length);
   return checkedIds;
 }
 

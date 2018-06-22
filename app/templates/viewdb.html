@@ -16,6 +16,7 @@
 					<option value="sign-in"> Sign in to location </option>
 					<option value="sign-out">Sign out </option>
 					<option value="remove">  Remove from list </option>
+					<option value="add">     Add new people to the list </option>
 				</select>
 
 				<br>
@@ -33,7 +34,25 @@
 				<span id="remove-confirm">
 					<label> Are you sure? <input type="checkbox" id="yes-im-sure"> </label>
 				</span>
-				<br>
+
+				<span id="add-options">
+					Initial location:
+					<select id="add-locationSelect">
+						<option value="577"> 577 (Main Building) </option>
+						<option value="Kesher"> Kesher </option>
+						<option value="Park"> Park/Outside </option>
+						<option value="Field Trip"  > Main field trip </option>
+						<option value="Field Trip 2"> Alternate field trip </option>
+					</select> <br>
+
+					<form id="add-list-form">
+						<span id="add-list">
+						</span>
+						<input type="submit" value="+" onclick="javascript:appendNewEntry()"
+					</form>
+				</span>
+
+				<br> <br>
 				<input type="submit" name="submit-change" class="submit">
 			</form>
 
@@ -93,8 +112,15 @@
 						<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
 					</tr>
 					{% endfor %}
+					<!-- This is here to slightly simplify the backend -->
+					<input class="hidden" type="checkbox" name="select-box" value="">
 				</form>
 			</tbody>
 		</table>
+
+		<div class="content-text msg">
+			<br>
+			Use the action bit at the top of the page to add people to the database.
+		</div>
 	</div>
 {% endblock %}

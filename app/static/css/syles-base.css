@@ -64,3 +64,7 @@ tbody tr:nth-child(odd) {
   margin: 0;
   padding: 0;
 }
+
+.hidden {
+  display: none;
+}
