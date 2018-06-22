@@ -1,0 +1,18 @@
+#actionsBlock {
+  float: left;
+  display: block;
+  width: 300px;
+}
+
+#visibilityBlock {
+  float: left;
+  display: block;
+}
+
+#chart {
+  clear: both;
+}
+
+.msg {
+  color: grey;
+}

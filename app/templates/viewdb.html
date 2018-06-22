@@ -3,45 +3,98 @@
 {% block head %}
 	<title>Main Page</title>
 	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewdb.css') }}">
 {% endblock %}
 
 {% block content %}
-	<h1> Basic Actions </h1>
-	<form id="actionsForm">
-		<select id="actionSelect">
-			<option value="lmain"> Main Location </option>
-			<option value="lsec">  Second Location </option>
-			<option value="l3ree"> Third Location </option>
-		</select>
-		<input type="submit" name="submit-change" class="submit">
-	</form>
+	<div id="actionsBlock">
+		<h1> Basic Actions </h1>
 
-	<div id="actionStatus">
-		<!--Left empty for js-->
-	</div>
-	<h1> All Camper Info </h1>
-	<table>
-		<thead>
-			<th class="check"> <input type="checkbox"> </th>
-			<th class="text-center"> ID </th>
-			<th class="text-right "> First Name</th>
-			<th class="text-left  "> Last Name(s)</th>
-			<th class="text-left  "> Location</th>
-			<th class="text-left  "> Notes</th>
-		</thead>
-		<tbody>
-			<form id="camperList">
-				{% for camper in campers %}
-				<tr>
-					<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}"></td>
-					<td class="text-center"> {{camper.id}} </td>
-					<td class="text-right "> {{camper.firstname}} </td>
-					<td class="text-left  "> {{camper.lastname}} </td>
-					<td class="text-left  "> {{camper.location}} </td>
-					<td class="text-left  "> {{camper.notes}} </td>
-				</tr>
-				{% endfor %}
+		<div class="content-text">
+			<form id="actionsForm">
+				<select id="actionSelect" onchange="changeActionMeta(this)">
+					<option value="sign-in"> Sign in to location </option>
+					<option value="sign-out">Sign out </option>
+					<option value="remove">  Remove from list </option>
+				</select>
+
+				<br>
+
+				<span id="signin-options">
+					<select id="locationSelect">
+						<option value="577"> 577 (Main Building) </option>
+						<option value="Kesher"> Kesher </option>
+						<option value="Park"> Park/Outside </option>
+						<option value="Field Trip"  > Main field trip </option>
+						<option value="Field Trip 2"> Alternate field trip </option>
+					</select>
+				</span>
+
+				<span id="remove-confirm">
+					<label> Are you sure? <input type="checkbox" id="yes-im-sure"> </label>
+				</span>
+				<br>
+				<input type="submit" name="submit-change" class="submit">
 			</form>
-		</tbody>
-	</table>
+
+			<span id="action-status" class="msg">
+				<!--Left empty for js-->
+			</span>
+		</div>
+	</div>
+
+
+	<div id="visibilityBlock">
+		<h1> What to Show </h1>
+
+		<div class="content-text">
+			<form id="visibilityForm">
+				<label> ID Code    				<input type="checkbox"         onchange="setVisibility('id-col',this.checked)"> </label> <br>
+				<label> First Name 				<input type="checkbox" checked onchange="setVisibility('fn-col',this.checked)"> </label> <br>
+				<label> Last Name					<input type="checkbox" checked onchange="setVisibility('ln-col',this.checked)"> </label> <br>
+				<label> Current Location	<input type="checkbox" checked onchange="setVisibility('lc-col',this.checked)"> </label> <br>
+				<label> Notes							<input type="checkbox" checked onchange="setVisibility('nt-col',this.checked)"> </label> <br>
+
+			</form>
+		</div>
+	</div>
+
+
+	<div id="chart">
+		<h1> All Camper Info </h1>
+
+		<div class="content-text">
+			Click on name or notes to edit.
+			<span id="edit-save-message" class="msg">
+				<!-- intentionally empty for js -->
+			</span>
+			<br><br>
+		</div>
+
+		<table>
+			<thead>
+				<th class="check"> <input id="select-all-box" type="checkbox" onchange="checkAll(this)"> </th>
+				<th class="id-col"> ID </th>
+				<th class="fn-col"> First Name</th>
+				<th class="ln-col"> Last Name(s)</th>
+				<th class="lc-col"> Location</th>
+				<th class="nt-col"> Notes</th>
+			</thead>
+			<tbody>
+				<form id="camperList">
+					{% for camper in campers %}
+					<tr id="{{camper.id}}">
+						<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onclick="normalCheck(this)"></td>
+						<td class="id-col"> {{camper.id}} </td>
+						<td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
+						<td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
+						<td class="lc-col"> {{camper.location}} </td>
+						<td class="nt-col editable" id="notes"    > {{camper.notes}}</a> </td>
+						<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
+					</tr>
+					{% endfor %}
+				</form>
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

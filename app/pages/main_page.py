@@ -16,12 +16,9 @@ def shutdown_session(exception=None):
 @app.route('/')
 @app.route('/index')
 def index():
-	print ('shit')
 	#If no database is found, make one
 	check_db();
-	print ('fucc')
 	#add a fake camper for testing
-	add_camper('oofie', 'twoof')
 	print (db_session.query(Camper).count())
 
 	#grab camper data

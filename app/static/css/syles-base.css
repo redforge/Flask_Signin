@@ -1,13 +1,31 @@
 #all-content {
   font-family:  Helvetica, Arial, sans-serif;
-  margin: 10px 5%;
+}
 
+@media only screen and (min-width: 500px) {
+  #all-content{
+    margin: 10px 5%;
+  }
+  td, th {
+    border: 1px solid #11111155;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1, .content-text {
+    padding: 0 15px;
+  }
 }
 
 table {
   font-size: 20px;
   border-collapse: collapse;
-  border-radius: 10px;
+
   background-color: #f0f0f0;
   width: 100%;
 }
@@ -21,26 +39,11 @@ thead{
 td, th {
   padding: 5pt 10pt;
   vertical-align: middle;
+  text-align: center;
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(odd) {
   background-color: #bacce2;
-}
-
-tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-
-tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
-thead th:first-child {
-    border-top-left-radius: 10px;
-}
-
-thead th:last-child {
-    border-top-right-radius: 10px;
 }
 
 .text-center {
@@ -58,7 +61,6 @@ thead th:last-child {
 #topcheck, #listcheck, .check {
   position: relative;
   text-align: center;
-  //width: 20px;
   margin: 0;
   padding: 0;
 }
