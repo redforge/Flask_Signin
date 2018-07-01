@@ -7,6 +7,9 @@ from app.data.models import Camper
 from app.data.camper_editing import *
 import os.path
 
+import json
+from collections import namedtuple
+
 @app.route('/api/test/print', methods = ['POST'])
 def api_print():
 	out = request.values.get('input')
@@ -25,13 +28,14 @@ def api_edit():
 
 	ids_parsed = ids_to_apply_to.split(',')
 
+	print (ids_parsed)
 	if (field_to_set == 'remove' and new_value == 'remove'):
 		for id in ids_parsed:
 			db_session.query(Camper).filter_by(id=id).delete()
 	else:
 		for id in ids_parsed:
 			camper = db_session.query(Camper).get(id)
-			print(id);
+			#print(id);
 			if   (field_to_set == 'location'):
 				camper.location = new_value
 			elif (field_to_set == 'firstname'):
@@ -48,6 +52,10 @@ def api_edit():
 
 @app.route('/api/add', methods = ['POST'])
 def api_add():
-	#TODO
+	s = request.values.get('new-campers')
+	x = json.loads(s, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+
+	for c in x:
+		add_camper(commit=False, firstname=c.firstname, lastname=c.lastname, nickname=c.nickname, location=c.location, note=c.note)
 	db_session.commit()
 	return 'success'

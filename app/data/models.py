@@ -9,14 +9,16 @@ class Camper(Base):
     id = Column(String(id_length), primary_key=True, unique=True)
     firstname = Column(String(50))
     lastname  = Column(String(100))
+    nickname  = Column(String(50))
     location  = Column(String(75))
-    note  = Column(String(250))
+    note      = Column(String(250))
 
 
-    def __init__(self, id=None, firstname=None, lastname=None):
+    def __init__(self, id=None, firstname=None, lastname=None, nickname='', location='unset', note=''):
         self.id        = id
         self.firstname = firstname
         self.lastname  = lastname
+        self.nickname  = nickname
         self.location  = 'Not Yet Set'
         self.note      = ''
 

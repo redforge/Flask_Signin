@@ -16,3 +16,16 @@
 .msg {
   color: grey;
 }
+
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  width: 80%;
+  margin-left: 0;
+  border: 1px dashed grey;
+}
+
+.add-fn, .add-ln, .add-nk, .add-ns {
+  width: 40%;
+}

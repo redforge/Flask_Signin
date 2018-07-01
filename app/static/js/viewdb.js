@@ -1,5 +1,16 @@
-const API_URL = "/api/edit";
-const ADD_LIST_ENTRY = "<input name='new-fn' type='text'> <input name='new-ln' type='text'>"
+const API_EDIT_URL = "/api/edit";
+const API_ADD_URL  = "/api/add";
+
+const ADD_LIST_ENTRY =
+`<span class='add-item'>
+  <input class='add-fn' name='new-fn' type='text' placeholder='Name (required)'>
+  <input class='add-ln' name='new-ln' type='text' placeholder='Surname (required)'>
+  <input class='add-nk' name='new-nk' type='text' placeholder='Nickname'>
+  <input class='add-ns' name='new-ns' type='text' placeholder='Notes'>
+  <hr>
+</span>`
+;
+
 shouldReload = false;
 
 $(document).ready(function() {
@@ -7,6 +18,8 @@ $(document).ready(function() {
   setVisibility("id-col", false);
   setNote("edit-save-message", "No manual changes yet...");
   changeAction("sign-in");
+
+  document.getElementById("actionSelect").value = "sign-in";
 
   //jQuery bindings
   $("#actionsForm").submit(function () {
@@ -87,7 +100,9 @@ function changeAction(value) {
 //Add entry to the 'add new' list
 
 function appendNewEntry() {
-  document.getElementById("add-list").innerHTML += ADD_LIST_ENTRY;
+  entry = document.createElement("div");
+  entry.innerHTML = ADD_LIST_ENTRY;
+  document.getElementById("add-list").appendChild(entry.firstChild);
 }
 
 //Sets the visibility of all elements of a class
@@ -126,8 +141,7 @@ function grabIds() {
   var checkBoxes = document.forms["camperList"].elements["select-box"];
   var checkedIds = [];
   for(var i = 0; i<checkBoxes.length; i++) {
-    console.log('lol');
-    if (checkBoxes[i].checked) {
+    if (checkBoxes[i].checked && checkBoxes[i].value != "") {
       //Values defined to be IDs by html template
       checkedIds.push(checkBoxes[i].value);
     }
@@ -146,7 +160,7 @@ function sendRequest(fieldToSet, newValue, idsToApplyTo) {
   data.append("new-value", newValue)
   data.append("ids-to-apply-to", idsToApplyTo);
   xhr.addEventListener("load", handleResponse);
-  xhr.open("POST", API_URL);
+  xhr.open("POST", API_EDIT_URL);
   xhr.send(data);
 }
 
@@ -174,6 +188,11 @@ function submitRequest() {
       }
       break;
 
+    case "add":
+      shouldReload=true;
+      addNewCampers();
+      return false;
+
     default:
       console.log("Invalid Action: " + action);
       return false;
@@ -189,4 +208,27 @@ function submitRequest() {
     setNote("action-status", "Please select at least one person!");
     return false;
   }
+}
+
+function addNewCampers() {
+  var loc = document.getElementById("add-locationSelect").value;
+  function get(t,v) {return t.getElementsByClassName(v)[0].value;}
+  var newCampers = [];
+
+  $(".add-item").each(function() {
+    if (!(get(this, "add-fn")=="")) {
+      var cObj = { "firstname":get(this, "add-fn"), "lastname":get(this, "add-ln"), "nickname":get(this, "add-nk"), "note":get(this, "add-ns"), "location":loc};
+      newCampers.push(cObj);
+    }
+  });
+
+  out = JSON.stringify(newCampers);
+
+  const xhr = new XMLHttpRequest();
+  const data = new FormData();
+
+  data.append("new-campers", out);
+  xhr.open("POST", API_ADD_URL);
+  xhr.addEventListener("load", handleResponse);
+  xhr.send(data);
 }

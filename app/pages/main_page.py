@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String
 from app.data.database import Base, db_session
 from app.data.check import check_db
 from app.data.models import Camper
-from app.data.camper_editing import *
+from app.data.camper_editing import get_locations
 import os.path
 
 #database thing
@@ -24,4 +24,4 @@ def index():
 	#grab camper data
 	camper_data = db_session.query(Camper)
 
-	return render_template('viewdb.html', campers=camper_data)
+	return render_template('viewdb.html', campers=camper_data, locations=get_locations())

@@ -8,11 +8,20 @@ location_list = [
 	{'short': 'Park',   'long':'Park/Outside'}
 ]
 
-def add_camper(firstname, lastname):
+def add_camper(firstname, lastname, nickname='', location='unset', note='', commit=True):
 	index = db_session.query(Camper).count()
-	c = Camper(id=encode_id(index), firstname=firstname, lastname=lastname)
+	#Make sure the id is unique! If a camper was deleted, it often isn't
+	#Tries to fill in earlier empty slots if possible. Once all deleted slots are refilled, this will not run
+	if (db_session.query(Camper).filter_by(id=encode_id(index)).count() > 0):
+		index = 0
+		while (db_session.query(Camper).filter_by(id=encode_id(index)).count() > 0):
+			index += 1
+
+	c = Camper(id=encode_id(index), firstname=firstname, lastname=lastname, nickname=nickname, location=location, note=note)
 	db_session.add(c)
-	db_session.commit()
+	if (commit):
+		db_session.commit()
+
 
 def get_locations():
 	return location_list
