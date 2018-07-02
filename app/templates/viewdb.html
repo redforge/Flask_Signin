@@ -2,7 +2,9 @@
 
 {% block head %}
 	<title>Main Page</title>
+	<script src="{{ url_for('static', filename='js/fuse.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewdb.css') }}">
 {% endblock %}
 
@@ -12,51 +14,52 @@
 
 		<div class="content-text">
 			<form id="actionsForm">
-				<select id="actionSelect" onchange="changeActionMeta(this)">
+				<select id="action-select" onchange="changeActionMeta(this)">
 					<option value="sign-in"> Sign in to location </option>
 					<option value="sign-out">Sign out </option>
 					<option value="remove">  Remove from list </option>
 					<option value="add">     Add new people to the list </option>
 				</select>
-
+				<span class="select-arrow"> </span>
 				<br>
 
-				<span id="signin-options">
-					<select id="locationSelect">
-						{% for location in locations %}
+				<div id="signin-options">
+					<hr>
+					<span class="content-text"> Sign in to: </span>
+					<select id="location-select">
+						{% for location in locations %}A
 							<option value="{{location.short}}"> {{location.long}} </option>
 						{% endfor %}
-						<!--<option value="Kesher"> Kesher </option>
-						<option value="577"> 577 (Main Building) </option>
-						<option value="Park"> Park/Outside </option>
-						<option value="Field Trip"  > Main field trip </option>
-						<option value="Field Trip 2"> Alternate field trip </option>-->
 					</select>
-				</span>
+					<span class="select-arrow"> </span>
+				</div>
 
-				<span id="remove-confirm">
+				<div id="remove-confirm">
+					<hr>
 					<label> Are you sure? <input type="checkbox" id="yes-im-sure"> </label>
-				</span>
+				</div>
 
-				<span id="add-options">
-					Initial location:
-					<select id="add-locationSelect">
-						<option value="577"> 577 (Main Building) </option>
-						<option value="Kesher"> Kesher </option>
-						<option value="Park"> Park/Outside </option>
-						<option value="Field Trip"  > Main field trip </option>
-						<option value="Field Trip 2"> Alternate field trip </option>
-					</select> <br>
+				<div id="add-options">
+					<hr>
+					Initial location <br>
+					<select id="add-location-select">
+						<option value="Not Yet Set"> Don't set yet </option>
+						{% for location in locations %}
+						<option value="{{location.short}}"> {{location.long}} </option>
+						{% endfor %}
+					</select>
+					<span class="select-arrow"> </span>
 					<hr>
 					<form id="add-list-form">
 						<span id="add-list">
 						</span>
-						<input type="submit" value="+" onclick="javascript:appendNewEntry()"
+						<span class="content-text"> <small>Empty entries will be ignored</small> </span>
+						<input type="submit" value="+1" id="add-plus" onclick="javascript:appendNewEntry()"
 					</form>
-				</span>
+				</div>
 
-				<br> <br>
-				<input type="submit" name="submit-change" class="submit">
+				<hr>
+				<input type="submit" name="submit-change" class="submit" value="Submit Action">
 			</form>
 
 			<span id="action-status" class="msg">
@@ -93,33 +96,37 @@
 			<br><br>
 		</div>
 
-		<table>
-			<thead>
-				<th class="check"> <input id="select-all-box" type="checkbox" onchange="checkAll(this)"> </th>
-				<th class="id-col"> ID </th>
-				<th class="fn-col"> First Name</th>
-				<th class="ln-col"> Last Name(s)</th>
-				<th class="lc-col"> Location</th>
-				<th class="nt-col"> Notes</th>
-			</thead>
-			<tbody>
-				<form id="camperList">
-					{% for camper in campers %}
-					<tr id="{{camper.id}}">
-						<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onclick="normalCheck(this)"></td>
-						<td class="id-col"> {{camper.id}} </td>
-						<td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
-						<td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
-						<td class="lc-col"> {{camper.location}} </td>
-						<td class="nt-col editable" id="notes"    > {{camper.notes}}</a> </td>
-						<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
-					</tr>
-					{% endfor %}
-					<!-- This is here to slightly simplify the backend -->
-					<input class="hidden" type="checkbox" name="select-box" value="">
-				</form>
-			</tbody>
-		</table>
+		<input type="text" id="filterbox" placeholder="Filter" onkeyup="filter(this.value, 'ordered')">
+		
+		<div id="chart-wrapper">
+			<table>
+				<thead>
+					<th class="check"> <input id="select-all-box" type="checkbox" onchange="checkAll(this)"> </th>
+					<th class="id-col"> ID </th>
+					<th class="fn-col"> First Name</th>
+					<th class="ln-col"> Last Name(s)</th>
+					<th class="lc-col"> Location</th>
+					<th class="nt-col"> Notes</th>
+				</thead>
+				<tbody>
+					<form id="camperList">
+						{% for camper in campers %}
+						<tr id="{{camper.id}}">
+							<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onclick="normalCheck(this)"></td>
+							<td class="id-col"> {{camper.id}} </td>
+							<td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
+							<td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
+							<td class="lc-col"> {{camper.location}} </td>
+							<td class="nt-col editable" id="note"    > {{camper.note}}</a> </td>
+							<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
+						</tr>
+						{% endfor %}
+						<!-- This is here to slightly simplify the backend -->
+						<input class="hidden" type="checkbox" name="select-box" value="">
+					</form>
+				</tbody>
+			</table>
+		</div>
 
 		<div class="content-text msg">
 			<br>

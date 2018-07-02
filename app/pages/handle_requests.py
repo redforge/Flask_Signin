@@ -42,8 +42,8 @@ def api_edit():
 				camper.firstname= new_value
 			elif (field_to_set == 'lastname'):
 				camper.lastname = new_value
-			elif (field_to_set == 'notes'):
-				camper.notes    = new_value
+			elif (field_to_set == 'note'):
+				camper.note    = new_value
 			else:
 				return "Error: Unknown Field"
 

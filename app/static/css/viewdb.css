@@ -29,3 +29,15 @@ hr {
 .add-fn, .add-ln, .add-nk, .add-ns {
   width: 40%;
 }
+
+#add-plus {
+  float: right;
+  margin-right: 20%;
+  height: 20px;
+  width: 35px;
+}
+
+#chart-wrapper {
+  border-radius: 4px;
+  border: 1.5px solid var(--accent-color);
+}

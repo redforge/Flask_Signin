@@ -3,10 +3,8 @@ const API_ADD_URL  = "/api/add";
 
 const ADD_LIST_ENTRY =
 `<span class='add-item'>
-  <input class='add-fn' name='new-fn' type='text' placeholder='Name (required)'>
-  <input class='add-ln' name='new-ln' type='text' placeholder='Surname (required)'>
-  <input class='add-nk' name='new-nk' type='text' placeholder='Nickname'>
-  <input class='add-ns' name='new-ns' type='text' placeholder='Notes'>
+  <input class='add-fn' name='new-fn' type='text' placeholder='Name (required)'><input class='add-ln' name='new-ln' type='text' placeholder='Surname'>
+  <input class='add-nk' name='new-nk' type='text' placeholder='Nickname'><input class='add-ns' name='new-ns' type='text' placeholder='Notes'>
   <hr>
 </span>`
 ;
@@ -19,7 +17,7 @@ $(document).ready(function() {
   setNote("edit-save-message", "No manual changes yet...");
   changeAction("sign-in");
 
-  document.getElementById("actionSelect").value = "sign-in";
+  document.getElementById("action-select").value = "sign-in";
 
   //jQuery bindings
   $("#actionsForm").submit(function () {
@@ -166,12 +164,12 @@ function sendRequest(fieldToSet, newValue, idsToApplyTo) {
 
 //Submit stuff filled in into the Basic Actions form
 function submitRequest() {
-  var action = ""+[document.forms["actionsForm"]["actionSelect"].value];
+  var action = ""+[document.forms["actionsForm"]["action-select"].value];
   var fieldToSet, newValue;
   switch (action) {
     case "sign-in":
       fieldToSet = "location"
-      newValue = [document.forms["actionsForm"]["locationSelect"].value];
+      newValue = [document.forms["actionsForm"]["location-select"].value];
       break;
 
     case "sign-out":
@@ -211,13 +209,14 @@ function submitRequest() {
 }
 
 function addNewCampers() {
-  var loc = document.getElementById("add-locationSelect").value;
+  var loc = document.getElementById("add-location-select").value;
   function get(t,v) {return t.getElementsByClassName(v)[0].value;}
   var newCampers = [];
 
   $(".add-item").each(function() {
     if (!(get(this, "add-fn")=="")) {
       var cObj = { "firstname":get(this, "add-fn"), "lastname":get(this, "add-ln"), "nickname":get(this, "add-nk"), "note":get(this, "add-ns"), "location":loc};
+      console.log(cObj);
       newCampers.push(cObj);
     }
   });

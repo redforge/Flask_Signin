@@ -14,13 +14,13 @@ class Camper(Base):
     note      = Column(String(250))
 
 
-    def __init__(self, id=None, firstname=None, lastname=None, nickname='', location='unset', note=''):
+    def __init__(self, id=None, firstname=None, lastname=None, nickname='', location='Not Yet Set', note=''):
         self.id        = id
         self.firstname = firstname
         self.lastname  = lastname
         self.nickname  = nickname
-        self.location  = 'Not Yet Set'
-        self.note      = ''
+        self.location  = location
+        self.note      = note
 
     def __repr__(self):
         return '<Camper %r>' % (self.firstname)
