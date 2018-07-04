@@ -3,14 +3,13 @@
   --accent-hue-shift: hue-rotate(66deg);
   --main-text-color: black;
   --contrast-text-color: white;
-  --dim-text-color: grey;
+  --dim-text-color: #AAAAAA;
   --main-text-size: 15px;
   --button-bg-color: white;
+  --focus-color: #C8DCFF90;
 }
 
 select {
-  //transition-duration: 0.1s;
-
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;       /* remove default arrow */
@@ -26,7 +25,7 @@ select {
   background-color: white;
 }
 
-select:hover {
+select:hover, select:focus {
   color: black;
   border-width: 2px;
   padding-left: 0;
@@ -45,8 +44,11 @@ select:hover {
   background-color: var(--accent-color);
 }
 
-select:hover {
-  //color: black;
+h3 {
+  display: inline-block;
+  font-weight: normal;
+  margin: 3px 0;
+  padding: 0;
 }
 
 input[type~="submit"] {
@@ -65,65 +67,75 @@ input[type~="submit"]:hover {
   color: var(--contrast-text-color);
 }
 
+input[type~="submit"]:focus {
+  background-color: var(--focus-color);
+  color: black;
+}
+
 input[type~="text"] {
-  -webkit-transition-duration: 0.1s; /* Safari */
-  transition-duration: 0.1s;
   background-color: var(--button-bg-color);
   border: 1px solid var(--accent-color);
   height: 26px;
   border-radius: 4px;
   font-size: var(--main-text-size);
-  //color: var(--accent-color);
   margin: 2px;
   padding: 0 5px;
+}
+
+input[type~="text"]:focus {
+  border-width: 2px;
+  padding: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  input[type~=text] {
+    padding: 20px;
+    width: 79%;
+  }
+  input[type~="text"]:focus {
+    border-width: 2px;
+    padding: 19px;
+  }
+  input[type~=submit]:not(#add-plus) {
+    padding: 10px 15px 30px 15px;
+  }
+  select {
+    height: 45px;
+    padding-right: 25px;
+    padding-left: 10px;
+  }
+  select:hover, select:focus {
+    height: 45px;
+    padding-right: 24px;
+    padding-left: 9px;
+  }
+  .select-arrow {
+    padding-left: 4px;
+    margin-left: -25px;
+    margin-bottom: -17px;
+    height: 45px;
+  }
 }
 
 #all-content {
   font-family:  Helvetica, Arial, sans-serif;
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
   #all-content{
     margin: 10px 5%;
   }
-  td, th {
-    border: 1px solid var(--accent-color);//#11111155;
-  }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   body {
     padding: 0;
     margin: 0;
   }
 
-  h1, .content-text {
+  .content-block {
     padding: 0 15px;
   }
-}
-
-table {
-  font-size: 20px;
-  border-collapse: collapse;
-
-  background-color: #f4f4f4;
-  width: 100%;
-}
-
-thead{
-  font-weight: bold;
-  background-color: var(--accent-color);//#2567b2;
-  color: white;
-}
-
-td, th {
-  padding: 5pt 10pt;
-  vertical-align: middle;
-  text-align: center;
-}
-
-tbody tr:nth-child(odd) {
-  background-color: #0000001C;//#bacce2;
 }
 
 .text-center {
@@ -138,13 +150,72 @@ tbody tr:nth-child(odd) {
     text-align: right;
 }
 
-#topcheck, #listcheck, .check {
-  position: relative;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
 .hidden {
   display: none;
+}
+
+input[type=checkbox].css-checkbox {
+  position:absolute;
+  z-index:-1000;
+  left:-1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height:1px;
+  width:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+  height: 15px;
+  width: 15px;
+  margin: 0;
+  background-color: white;
+  border: 1px solid var(--dim-text-color);
+  display:inline-block;
+  line-height:25px;
+  font-size:25px;
+  vertical-align:middle;
+  cursor:pointer;
+  border-radius: 4px;
+}
+
+/*checkbox styles*/
+input[type=checkbox].css-checkbox:focus + label.css-label, input[type=checkbox].css-checkbox:hover + label.css-label {
+  background-color: var(--focus-color);
+  border-color: var(--accent-color);
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label::after {
+  content: '';
+  display: block;
+
+  width: 4px;
+  height: 8px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  border-color: var(--contrast-text-color);
+  transform: rotate(45deg);
+
+  margin: 1px 4px;
+}
+
+label.css-label {
+  //background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_391ce065f36b1460c4845fa9b5173fba.png);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input[type=checkbox].css-checkbox:checked:focus + label.css-label, input[type=checkbox].css-checkbox:checked + label.css-label:focus {
+  box-shadow: inset 100px 0 #FFFFFF5C;
 }

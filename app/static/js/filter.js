@@ -1,10 +1,7 @@
-function peskySpaces (s) {
-
-}
-
-
 //The function that is called when text in the filter/search box is changed
 function filter (s, displayType) {
+  document.getElementsByClassName("select-all-box")[0].checked = false;
+
   s = s.trim();
   function get(e,v) {return e.getElementsByClassName(v)[0].innerHTML;}
   //Define options for Fuse
@@ -44,9 +41,9 @@ function filter (s, displayType) {
       //Show or hide things from the main table based on Fuse's results
       for (var i=0; i < lines.length; i++) {
         if (results.indexOf(""+i) > -1) {
-          lines[i].style.display = "";
+          setVisibilityByObject(lines[i], true );
         } else {
-          lines[i].style.display = "none";
+          setVisibilityByObject(lines[i], false);
         }
       }
       break;
@@ -56,10 +53,10 @@ function filter (s, displayType) {
       for (var i=0; i < lines.length; i++) {
         index = results.indexOf(""+i);
         if (index > -1) {
-          lines[i].style.display = "";
+          setVisibilityByObject(lines[i], true );
           lines[i].style.order = index;
         } else {
-          lines[i].style.display = "none";
+          setVisibilityByObject(lines[i], false);
           lines[i].style.order = "";
         }
       }
@@ -70,4 +67,6 @@ function filter (s, displayType) {
       break;
   }
 
+  //Update the highlights
+  refindOdds();
 }

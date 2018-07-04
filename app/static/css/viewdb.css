@@ -1,29 +1,47 @@
-#actionsBlock {
+#actionsBlock, #visibilityBlock {
   float: left;
   display: block;
   width: 300px;
 }
 
-#visibilityBlock {
-  float: left;
+.content-text {
   display: block;
-}
-
-#chart {
   clear: both;
+  line-height: 125%;
+  margin: 0;
+  padding: 0;
 }
 
-.msg {
-  color: grey;
+.shorten {
+  margin-top: -8px;
 }
 
 hr {
   display: block;
   margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  float: left;
   width: 80%;
-  margin-left: 0;
   border: 1px dashed grey;
+}
+
+@media only screen and (max-width: 600px) {
+  #actionsBlock, #visibilityBlock {
+    width: 100%;
+  }
+
+  #actionsBlock, #visibilityBlock hr {
+    width: 100%;
+    padding-right: 200px;
+  }
+}
+
+#chart-block {
+  clear: both;
+  padding-top: 20px;
+}
+
+.msg {
+  color: grey;
 }
 
 .add-fn, .add-ln, .add-nk, .add-ns {
@@ -35,9 +53,4 @@ hr {
   margin-right: 20%;
   height: 20px;
   width: 35px;
-}
-
-#chart-wrapper {
-  border-radius: 4px;
-  border: 1.5px solid var(--accent-color);
 }

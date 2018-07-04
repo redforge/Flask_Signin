@@ -1,0 +1,103 @@
+@media only screen and (min-width: 600px) {
+  td, th {
+    border: 1px solid var(--accent-color);//#11111155;
+  }
+  #chart-wrapper {
+    position: relative;
+    z-index: 10;
+    border-radius: 4px;
+    border: 1.5px solid var(--accent-color);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #filterbox {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.check, .all-check {
+  width: 32px;
+}
+
+#topcheck, #listcheck, .check, .all-check {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  font-size: 20px;
+  border-collapse: collapse;
+
+  background-color: #f4f4f4;
+  width: 100%;
+}
+
+thead{
+  font-weight: bold;
+  background-color: var(--accent-color);
+  color: white;
+}
+
+td, th {
+  padding: 5pt 10pt;
+  vertical-align: middle;
+  text-align: center;
+}
+
+th.all-check {
+  box-shadow: inset 0 0 100px #FFFFFF2C;
+}
+
+th:not(.last-col){
+  border-right-color: #FFFFFF66;
+}
+
+#visibilityBlock label.css-label {
+  margin: -10px 3px;
+}
+
+#visibilityBlock h3 {
+  font-size: 16;
+}
+
+/*th:last-child{
+  border-right-width: 0;
+}*/
+
+/* odd-row is given by jQuery */
+tbody tr.odd-row {
+  background-color: #0000001C;
+  list-style-type: disc;
+}
+
+tr {
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+}
+
+tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
+  /*all highlights expect first*/
+  /*shadows order: left, right, fill*/
+  box-shadow: -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100px 0 0 var(--focus-color);
+}
+
+tr:not(.highlight) + .highlight {
+  /*first highlight*/
+  /*shadows order: top, left, right, fill*/
+  box-shadow: 0px -3px 2px -1px grey, -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100px 0 0 var(--focus-color);
+}
+
+.highlight + tr:not(.highlight) {
+  /*first item AFTER highlights*/
+  box-shadow: inset 0px 6px 4px -4px grey;
+}
+
+@media only screen and (max-width: 800px) {
+  .check, .all-check css-label {
+    padding: 0 8px;
+  }
+}

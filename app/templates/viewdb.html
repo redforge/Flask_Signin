@@ -1,15 +1,15 @@
 {% extends "base.html" %}
+{% import "camperlist.html" as chart %}
 
 {% block head %}
 	<title>Main Page</title>
-	<script src="{{ url_for('static', filename='js/fuse.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewdb.css') }}">
+	{{ chart.head() }}
+	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-	<div id="actionsBlock">
+	<div id="actionsBlock" class="content-block">
 		<h1> Basic Actions </h1>
 
 		<div class="content-text">
@@ -36,12 +36,12 @@
 
 				<div id="remove-confirm">
 					<hr>
-					<label> Are you sure? <input type="checkbox" id="yes-im-sure"> </label>
+					<label class="content-text"> Are you sure? <input type="checkbox" class="yes-im-sure"> </label>
 				</div>
 
 				<div id="add-options">
 					<hr>
-					Initial location <br>
+					<span class="content-text"> Initial location </span>
 					<select id="add-location-select">
 						<option value="Not Yet Set"> Don't set yet </option>
 						{% for location in locations %}
@@ -53,84 +53,21 @@
 					<form id="add-list-form">
 						<span id="add-list">
 						</span>
-						<span class="content-text"> <small>Empty entries will be ignored</small> </span>
-						<input type="submit" value="+1" id="add-plus" onclick="javascript:appendNewEntry()"
+						<span class="content-text shorten"> <small>Empty entries will be ignored</small>
+						<input type="submit" value="+1" id="add-plus" onclick="javascript:appendNewEntry();return false;"> </span>
 					</form>
 				</div>
-
-				<hr>
-				<input type="submit" name="submit-change" class="submit" value="Submit Action">
+				<hr class="shorten">
+				<input type="submit" name="submit-change" class="submit" value="Submit Action" onclick="submitRequest();return false;">
 			</form>
-
-			<span id="action-status" class="msg">
+			<span id="action-status" class="msg content-text">
 				<!--Left empty for js-->
 			</span>
 		</div>
 	</div>
 
+	{{ chart.visblock() }}
+	{{ chart.fullbody(campers) }}
 
-	<div id="visibilityBlock">
-		<h1> What to Show </h1>
-
-		<div class="content-text">
-			<form id="visibilityForm">
-				<label> ID Code    				<input type="checkbox"         onchange="setVisibility('id-col',this.checked)"> </label> <br>
-				<label> First Name 				<input type="checkbox" checked onchange="setVisibility('fn-col',this.checked)"> </label> <br>
-				<label> Last Name					<input type="checkbox" checked onchange="setVisibility('ln-col',this.checked)"> </label> <br>
-				<label> Current Location	<input type="checkbox" checked onchange="setVisibility('lc-col',this.checked)"> </label> <br>
-				<label> Notes							<input type="checkbox" checked onchange="setVisibility('nt-col',this.checked)"> </label> <br>
-
-			</form>
-		</div>
-	</div>
-
-
-	<div id="chart">
-		<h1> All Camper Info </h1>
-
-		<div class="content-text">
-			Click on name or notes to edit.
-			<span id="edit-save-message" class="msg">
-				<!-- intentionally empty for js -->
-			</span>
-			<br><br>
-		</div>
-
-		<input type="text" id="filterbox" placeholder="Filter" onkeyup="filter(this.value, 'ordered')">
-		
-		<div id="chart-wrapper">
-			<table>
-				<thead>
-					<th class="check"> <input id="select-all-box" type="checkbox" onchange="checkAll(this)"> </th>
-					<th class="id-col"> ID </th>
-					<th class="fn-col"> First Name</th>
-					<th class="ln-col"> Last Name(s)</th>
-					<th class="lc-col"> Location</th>
-					<th class="nt-col"> Notes</th>
-				</thead>
-				<tbody>
-					<form id="camperList">
-						{% for camper in campers %}
-						<tr id="{{camper.id}}">
-							<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onclick="normalCheck(this)"></td>
-							<td class="id-col"> {{camper.id}} </td>
-							<td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
-							<td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
-							<td class="lc-col"> {{camper.location}} </td>
-							<td class="nt-col editable" id="note"    > {{camper.note}}</a> </td>
-							<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
-						</tr>
-						{% endfor %}
-						<!-- This is here to slightly simplify the backend -->
-						<input class="hidden" type="checkbox" name="select-box" value="">
-					</form>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="content-text msg">
-			<br>
-			Use the action bit at the top of the page to add people to the database.
-		</div>
 	</div>
 {% endblock %}
