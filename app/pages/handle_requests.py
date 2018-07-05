@@ -43,7 +43,7 @@ def api_edit():
 			elif (field_to_set == 'lastname'):
 				camper.lastname = new_value
 			elif (field_to_set == 'note'):
-				camper.note    = new_value
+				camper.note     = new_value
 			else:
 				return "Error: Unknown Field"
 
@@ -59,3 +59,12 @@ def api_add():
 		add_camper(commit=False, firstname=c.firstname, lastname=c.lastname, nickname=c.nickname, location=c.location, note=c.note)
 	db_session.commit()
 	return 'success'
+
+@app.route('/api/token-search', methods = ['GET'])
+def api_search():
+	print("ddsds")
+	ph1 = {"id":"1", "name":"firstone"}
+	ph2 = {"id":"2", "name":"secondboi"}
+	phx = [ph1, ph2]
+	print(json.dumps(phx))
+	return json.dumps(phx)

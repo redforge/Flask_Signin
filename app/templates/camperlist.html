@@ -1,6 +1,7 @@
 {% macro head() -%}
+	<script src="{{ url_for('static', filename='js/lib/fuse.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/lib/jquery.tokeninput.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/fuse.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/camperlist.js') }}"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/camperlist.css') }}">
 {% endmacro %}
@@ -35,7 +36,7 @@
       <input type="text" id="filterbox" placeholder="Filter" onkeyup="filter(this.value, 'ordered')">
     </div>
 
-    {{ chartonly(campers) }}
+    {{ chartwrapped(campers) }}
 
     <div class="content-text msg">
       <br>
@@ -43,33 +44,56 @@
     </div>
 {% endmacro %}
 
+{% macro chartwrapped(campers) -%}
+	<div id="chart-wrapper">
+		{{ chartonly(campers) }}
+	</div>
+{% endmacro %}
+
 {% macro chartonly(campers) -%}
-  <div id="chart-wrapper">
-    <table>
-      <thead>
-        <th class="all-check"> <input class="select-all-box" type="checkbox" style="border: 2px solid white;" onchange="checkAll(this)"> </th>
-        <th class="id-col"> ID </th>
-        <th class="fn-col"> First Name</th>
-        <th class="ln-col"> Last Name(s)</th>
-        <th class="lc-col"> Location</th>
-        <th class="nt-col"> Notes</th>
-      </thead>
-      <tbody>
-        <form id="camperList">
-          {% for camper in campers %}
-          <tr id="{{camper.id}}">
-            <td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this)"></td>
-            <td class="id-col"> {{camper.id}} </td>
-            <td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
-            <td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
-            <td class="lc-col"> {{camper.location}} </td>
-            <td class="nt-col editable" id="note"    > {{camper.note}}</a> </td>
-            <!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
-          </tr>
-          {% endfor %}
-          <!-- This is here to slightly simplify the backend -->
-        </form>
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <th class="all-check"> <input class="select-all-box" type="checkbox" style="border: 2px solid white;" onchange="checkAll(this)"> </th>
+      <th class="id-col"> ID </th>
+      <th class="fn-col"> First Name</th>
+      <th class="ln-col"> Last Name(s)</th>
+      <th class="lc-col"> Location</th>
+      <th class="nt-col"> Notes</th>
+    </thead>
+    <tbody>
+      <form id="camperList">
+        {% for camper in campers %}
+        <tr id="{{camper.id}}">
+          <td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this)"></td>
+          <td class="id-col"> {{camper.id}} </td>
+          <td class="fn-col editable" id="firstname"> {{camper.firstname}} </td>
+          <td class="ln-col editable" id="lastname" > {{camper.lastname}} </td>
+          <td class="lc-col"> {{camper.location}} </td>
+          <td class="nt-col editable" id="note"    > {{camper.note}}</a> </td>
+          <!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
+        </tr>
+        {% endfor %}
+        <!-- This is here to slightly simplify the backend -->
+      </form>
+    </tbody>
+  </table>
+{% endmacro %}
+
+{% macro list(campers) %}
+	<table>
+		<form id="camperList">
+			{% for camper in campers %}
+
+			<tr class="" id="{{camper.id}}">
+				<td class="id-col"> {{camper.id}} </td>
+				<td class="fn-col" id="firstname"> {{camper.firstname}} <input type="submit" class="" onfocus="listFocus(this, true)" onblur="listFocus(this, false)" onclick="input"> </td>
+				<td class="ln-col" id="lastname" > {{camper.lastname}} </td>
+				<td class="lc-col"> {{camper.location}} </td>
+				<td class="nt-col" id="note"     > {{camper.note}}</a> </td>
+				<!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
+			</tr>
+			{% endfor %}
+			<!-- This is here to slightly simplify the backend -->
+		</form>
+	</table>
 {% endmacro %}

@@ -4,13 +4,17 @@ var clickCountDc = 0;
 var timerDc, prevElemDc, functionDc;
 
 $(document).ready(function() {
+
   //Run once page loads
   setVisibility(".id-col", false);
   refindOdds();
 
   //Uncheck everything in list
-  checkAll({"checked":false});
-  $(".select-all-box")[0].checked = false;
+  try {
+    //Stuff that will run if its the full table
+    $(".select-all-box")[0].checked = false;
+    checkAll({"checked":false});
+  }catch{}
 
   //Bind for directly editable items
   $(".editable").bind("dblclick",
@@ -35,7 +39,7 @@ $(document).ready(function() {
   refindColumns();
 
   //Big chunk of code that just selects stuff on a single, but not doubt, click
-  $("td:not('input'):not('.check')").bind("click",
+  $("#chart-wrapper td:not('input'):not('.check')").bind("click",
     function() {
       //Sets the timer
       function setTimer() {
@@ -105,6 +109,12 @@ function refindOdds() {
       $(this).removeClass("odd-row");
     }
   });
+}
+
+function listFocus(e, isFocus) {
+  row = $(e).parent().parent();
+  if (isFocus) $(row).addClass("list-focus");
+  else $(row).removeClass("list-focus");
 }
 
 function refindColumns() {

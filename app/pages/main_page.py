@@ -12,7 +12,6 @@ import os.path
 def shutdown_session(exception=None):
 	db_session.remove()
 
-#actual webpage, currently no real frontend lol
 @app.route('/')
 @app.route('/index')
 def index():
@@ -25,3 +24,16 @@ def index():
 	camper_data = db_session.query(Camper)
 
 	return render_template('viewdb.html', campers=camper_data, locations=get_locations())
+
+
+@app.route('/debug')
+def debug():
+	#If no database is found, make one
+	check_db();
+	#add a fake camper for testing
+	print (db_session.query(Camper).count())
+
+	#grab camper data
+	camper_data = db_session.query(Camper)
+
+	return render_template('debug.html', campers=camper_data, locations=get_locations())

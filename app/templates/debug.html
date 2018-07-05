@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "camperlist.html" as chart %}
+
+{% block head %}
+	<title>Main Page</title>
+	{{ chart.head() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/debug.css') }}"></link>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/token-input-mac.css') }}"></link>
+  <script src="{{ url_for('static', filename='js/moveit.js') }}"> </script>
+{% endblock %}
+
+{% block content %}
+  <span  tabindex="0" class="tokens" onclick="showBox();">
+    <input id = "tokeninput">
+  </span>
+
+  <script>
+    $(document).ready(function() {
+      $("#tokeninput").tokenInput([
+        {% for camper in campers %}
+          {id: "{{camper.id}}", name: "{{camper.firstname}}"},
+        {% endfor %}
+      ], preventDuplicates=true);
+    });
+  </script>
+
+  <div id="list-wrapper">
+    <table>
+      {{ chart.list(campers) }}
+    </table>
+  </div>
+{% endblock %}

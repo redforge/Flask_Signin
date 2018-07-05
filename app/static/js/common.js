@@ -33,12 +33,6 @@ $(document).keydown(function(e) {
   if ($(document.activeElement)[0].tagName.toLowerCase() == "input") {
 
     switch(e.which) {
-
-      case 32: // space
-        //$(adjacentElem(-1)).focus();
-        e.preventDefault();
-        break;
-
       case 38: // up
         $(adjacentElem(-1)).focus();
         e.preventDefault();
@@ -46,6 +40,7 @@ $(document).keydown(function(e) {
 
       case 40: // down
         $(adjacentElem(1)).focus();
+        console.log(adjacentElem(1));
         e.preventDefault();
         break;
 
@@ -70,7 +65,7 @@ function adjacentElem(offset) {
   //Iterate until a sibling is or contains an input
   for (var i=0; i<10; i++) { /* up to 10 "layers" out */
     //Check if this element contains it
-    eTemps = $(eWorking).find("input").toArray();
+    eTemps = $(eWorking).find("input, .selectable").toArray();
 
     //Check that there's actually anything there
     if (eTemps.length != 0) {

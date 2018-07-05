@@ -5,4 +5,4 @@ cd "$(dirname "$0")"
 #pip3 install -r ./requirements.txt
 #source ./venv/bin/activate
 export FLASK_APP=run.py
-flask run --host=192.168.1.194
+flask run
