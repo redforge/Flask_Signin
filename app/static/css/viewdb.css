@@ -1,7 +1,20 @@
 #actionsBlock, #visibilityBlock {
-  float: left;
-  display: block;
-  width: 300px;
+  min-width: 200px;
+}
+
+#tokenBlock {
+  clear: both;
+}
+
+.h-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.h-flex .content-block {
+  margin-bottom: 0px;
+  width: 100%;
 }
 
 .content-text {
@@ -12,6 +25,10 @@
   padding: 0;
 }
 
+.content-block {
+  flex-basis: 400px;
+}
+
 .shorten {
   margin-top: -8px;
 }
@@ -20,24 +37,27 @@ hr {
   display: block;
   margin-top: 0.5em;
   float: left;
-  width: 80%;
+  width: 100%;
   border: 1px dashed grey;
 }
 
 @media only screen and (max-width: 600px) {
-  #actionsBlock, #visibilityBlock {
+  .h-flex {
     width: 100%;
+    display: flex;
+  }
+  #chart-block {
+    clear: both;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 2px 0;
+    box-shadow: none;
+    border-radius: 0;
   }
 
-  #actionsBlock, #visibilityBlock hr {
-    width: 100%;
-    padding-right: 200px;
+  .c-inner {
+    padding: 20px;
   }
-}
-
-#chart-block {
-  clear: both;
-  padding-top: 20px;
 }
 
 .msg {

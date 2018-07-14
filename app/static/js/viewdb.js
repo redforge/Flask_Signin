@@ -1,7 +1,7 @@
-const API_EDIT_URL = "/api/edit";
-const API_ADD_URL  = "/api/add";
+var API_EDIT_URL = "/api/edit";
+var API_ADD_URL  = "/api/add";
 
-const ADD_LIST_ENTRY =
+var ADD_LIST_ENTRY =
 `<span class='add-item'>
   <br>
   <input class='add-fn' name='new-fn' type='text' placeholder='Name (required)'><input class='add-ln' name='new-ln' type='text' placeholder='Surname'>
@@ -12,6 +12,8 @@ const ADD_LIST_ENTRY =
 
 shouldReload = false;
 
+var tokenbox = null;
+
 $(document).ready(function() {
 
   //Run once page loads
@@ -20,21 +22,15 @@ $(document).ready(function() {
   document.getElementById("action-select").value = "sign-in";
   changeAction("sign-in");
   changeAction("sign-in"); //idk why this has to run twice, but its not exactly high priority to fix
+
+  tokenbox = $("#tokeninput");
 });
 
-//Called when the server responds to a request
-const handleResponse = ({ target }) => {
-  //"Success" indicates no error, anything else is assumed to be an error.
-  console.log("Recieved response: " + target.responseText);
-  if(target.responseText=="success") {
-    if(shouldReload) {
-      location.reload();
-    }
-  }
-  else {
-    setNote("action-status", "Error: Input seems to be invalid");
-  }
-};
+function addRemoveToken(item, isAdd) {
+//  console.log (item.id + isAdd);
+  cbTemp = $("#"+item.id).find("input[type~='checkbox']");
+  normalCheck (cbTemp, changeVal=true, newVal=isAdd, editSelect=false);
+}
 
 //Fuction called by the page, casts the value and sends it to the fuction below
 function changeActionMeta(e) {
@@ -44,24 +40,24 @@ function changeActionMeta(e) {
 //Called when the action (e.g. Sign out) is changed
 function changeAction(value) {
   //Hide everthing
-  setVisibility ("#signin-options", false);
-  setVisibility ("#remove-confirm", false);
-  setVisibility ("#add-options"   , false);
+  setVisibilityBySelector("#signin-options", false);
+  setVisibilityBySelector("#remove-confirm", false);
+  setVisibilityBySelector("#add-options"   , false);
 
   //Unhide relevant things
   switch (value) {
     case "sign-in":
-      setVisibility ("#signin-options", true);
+      setVisibilityBySelector("#signin-options", true);
 
     case "sign-out":
       break;
 
     case "remove":
-      setVisibility ("#remove-confirm", true);
+      setVisibilityBySelector("#remove-confirm", true);
       break;
 
     case "add":
-      setVisibility ("#add-options"   , true);
+      setVisibilityBySelector("#add-options"   , true);
       document.getElementById("add-list").innerHTML = "";
       appendNewEntry();
       break;
@@ -92,6 +88,7 @@ function submitRequest() {
     case "sign-in":
       fieldToSet = "location"
       newValue = [document.forms["actionsForm"]["location-select"].value];
+      if (newValue == "other") newValue = $("#signin-custom-location").val();
       break;
 
     case "sign-out":
@@ -144,8 +141,8 @@ function addNewCampers() {
 
   out = JSON.stringify(newCampers);
 
-  const xhr = new XMLHttpRequest();
-  const data = new FormData();
+  var xhr = new XMLHttpRequest();
+  var data = new FormData();
 
   data.append("new-campers", out);
   xhr.open("POST", API_ADD_URL);

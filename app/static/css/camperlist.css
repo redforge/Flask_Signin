@@ -1,4 +1,4 @@
-@media only screen and (min-width: 600px) {
+@media not screen and (max-width: 600px) {
   td, th {
     border: 1px solid var(--accent-color);//#11111155;
   }
@@ -10,15 +10,33 @@
   }
 }
 
+#filterbox {
+  float: right;
+  margin-top: -20pt;
+  margin-right: 0;
+  margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   #filterbox {
     width: 100%;
+    margin-top: auto;
     margin-bottom: 10px;
   }
 }
 
 .check, .all-check {
   width: 32px;
+}
+
+#chart-wrapper {
+  clear: both;
+}
+
+#above-chart {
+  min-width: 600px;
+  max-width: 60%;
+  float:left;
 }
 
 #topcheck, #listcheck, .check, .all-check {
@@ -31,7 +49,7 @@
 table {
   font-size: 20px;
   border-collapse: collapse;
-
+  table-layout: fixed;
   background-color: #f4f4f4;
   width: 100%;
 }
@@ -46,6 +64,12 @@ td, th {
   padding: 5pt 10pt;
   vertical-align: middle;
   text-align: center;
+}
+
+td {
+  overflow:hidden;
+  overflow-wrap: break-word;
+  word-wrap:     break-word;
 }
 
 th.all-check {
@@ -82,13 +106,13 @@ tr {
 tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
   /*all highlights expect first*/
   /*shadows order: left, right, fill*/
-  box-shadow: -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100px 0 0 var(--focus-color);
+  box-shadow: -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100vh 0 0 var(--focus-color);
 }
 
 tr:not(.highlight) + .highlight {
   /*first highlight*/
   /*shadows order: top, left, right, fill*/
-  box-shadow: 0px -3px 2px -1px grey, -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100px 0 0 var(--focus-color);
+  box-shadow: 0px -3px 2px -1px grey, -4px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100vh 0 0 var(--focus-color);
 }
 
 .highlight + tr:not(.highlight) {

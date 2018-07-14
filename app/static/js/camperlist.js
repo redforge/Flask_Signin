@@ -1,4 +1,4 @@
-const DBLCLICK_TIMER = 250;
+var DBLCLICK_TIMER = 250;
 var clickCountDc = 0;
 //Most of this is to prevent counting doubleclick
 var timerDc, prevElemDc, functionDc;
@@ -6,7 +6,7 @@ var timerDc, prevElemDc, functionDc;
 $(document).ready(function() {
 
   //Run once page loads
-  setVisibility(".id-col", false);
+  setVisibilityBySelector(".id-col", false);
   refindOdds();
 
   //Uncheck everything in list
@@ -123,11 +123,33 @@ function refindColumns() {
 }
 
 //Function called when any normal check box is changed
-function normalCheck(cb) {
+function normalCheck(cb, changeVal=false, newVal=false, editSelect=true) {
   document.getElementsByClassName("select-all-box")[0].checked = false;
   var row = $(cb).parent().parent()
-  if (cb.checked) $(row).addClass("highlight");
-  else $(row).removeClass("highlight");
+  isChecked = cb.checked; //This is here so we can override it if changing the value
+  if (changeVal) {
+    $(cb).prop("checked", newVal);
+    isChecked = newVal;
+  }
+  function getName() {
+    mid = " ";
+    nickname = $(row).find(".nk-col").html().trim();
+    if (typeof(nickname) == "string" && nickname.length > 0) mid = " \""+nickname+"\" ";
+    return $(row).find(".fn-col").html().trim() +mid+ $(row).find(".ln-col").html().trim();
+  }
+  if (isChecked) {
+    $(row).addClass("highlight");
+    if (editSelect) {
+      tokenFocusOverride = true;
+      tokenbox.tokenInput("add", { id: $(row).prop("id"), name: getName()} );
+    }
+  } else {
+    $(row).removeClass("highlight");
+    if (editSelect) {
+      tokenFocusOverride = true;
+      tokenbox.tokenInput("remove", { id: $(row).prop("id"), name: getName()} );
+    }
+  }
 }
 
 //Sets all the checkboxes to the same value, called when the top box is toggled
@@ -168,8 +190,8 @@ function grabIds() {
 
 //Actually send the request to the server
 function sendRequest(fieldToSet, newValue, idsToApplyTo) {
-  const xhr = new XMLHttpRequest();
-  const data = new FormData();
+  var xhr = new XMLHttpRequest();
+  var data = new FormData();
 
   data.append("field-to-set", fieldToSet)
   data.append("new-value", newValue)

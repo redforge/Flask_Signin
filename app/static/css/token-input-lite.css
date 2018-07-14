@@ -1,0 +1,53 @@
+fieldset.token-input {
+  position: relative;
+  padding: 0;
+  margin: 5px 0;
+  background: white;
+  width: 60%;
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.tokens {
+  margin-right: 10px;
+}
+
+.tokens input {
+  height: 57px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px dotted var(--accent-color);
+  margin: 0;
+  padding: 3px;
+}
+
+ul.token-input-list {
+  /* the actual text box */
+  overflow: hidden;
+  height: 25px;
+  cursor: text;
+  font-size: 14px;
+  min-height: 100px;
+  z-index: 999;
+  margin: 0;
+  padding: 3px;
+  width: 100%;
+  background: white;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+}
+
+ul.token-input-list:hover:not(:focus-within) {
+  box-shadow: inset 0 0 0 2px var(--focus-color);
+}
+
+ul.token-input-list:focus-within {
+  border: 3px solid var(--accent-color);
+  padding: 0.666px 2px 1px 2px;
+}
+
+.token-input-input-token input[type~="text"]:hover:not(:focus){
+  box-shadow: none;
+}

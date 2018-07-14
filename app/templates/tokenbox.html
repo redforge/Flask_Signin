@@ -1,0 +1,35 @@
+{% macro head() -%}
+	<title>Main Page</title>
+	<script src="{{ url_for('static', filename='js/lib/jquery.tokeninput.custom.js') }}"> </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/token-input-lite.css') }}"></link>
+	<link async rel="stylesheet" href="{{ url_for('static', filename='css/token-input-full.css') }}"></link>
+  <script async src="{{ url_for('static', filename='js/moveit.js') }}"> </script>
+{% endmacro %}
+
+{% macro boxonly(campers) -%}
+  <div  tabindex="0" class="tokens" onclick="showBox();">
+    <input id = "tokeninput">
+  </div>
+
+  <script async>
+    $(document).ready(function() {
+      $("#tokeninput").tokenInput([
+        {% for camper in campers %}
+          {id: "{{camper.id}}", name: "{{camper.firstname}}".trim()+" "+"{% if camper.nickname %}\"{{camper.nickname}}".trim()+"\" {% endif %}{{camper.lastname}}".trim()},
+        {% endfor %}
+			], {preventDuplicates: true, animateDropdown: false,
+					onAdd: function(item) {addRemoveToken(item, true);},
+					onDelete: function(item) {addRemoveToken(item, false);},
+					onGet: function() {relocateBox();},
+					onReady: function() {hideBox();}
+			});
+    });
+  </script>
+{% endmacro %}
+
+{% macro fullblock(campers) -%}
+	<div id="tokenBlock" class="content-block">
+		<h1> Quick Select </h1>
+  	{{ boxonly(campers) }}
+	</div>
+{% endmacro %}

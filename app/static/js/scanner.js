@@ -1,7 +1,7 @@
-const API_URL = '/api/scan/process';
+var API_URL = '/api/scan/process';
 //var recentList = document.getElementById('recentScans');
 
-const handleResponse = ({ target }) => {
+var handleResponse = ({ target }) => {
   // when flask responds...
   document.getElementById('recentScans').innerHTML += (target.responseText);
 
@@ -22,8 +22,8 @@ let options = {
 let scanner = new Instascan.Scanner(options);
 scanner.addListener('scan', function (content) {
   //Executes upon a valid scan
-  const xhr = new XMLHttpRequest();
-  const data = new FormData();
+  var xhr = new XMLHttpRequest();
+  var data = new FormData();
 
   data.append('input', content);
   xhr.addEventListener('load', handleResponse);

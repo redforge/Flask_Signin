@@ -2,16 +2,38 @@
 	<head>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/syles-base.css') }}">
 		<script src="{{ url_for('static', filename='js/lib/jquery.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='js/common.js') }}"    ></script>
+		<script src="{{ url_for('static', filename='js/common.js') }}"    		></script>
+		<script async src="{{ url_for('static', filename='js/logins.js') }}"  ></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		{% block head %}
 		<title>DB Test Page</title>
 		{% endblock %}
+		<script>
+			//Set colors
+			function sc(c) {
+				$(":root").css("--accent-color", "hsl("+c+")");
+				$(":root").css("--focus-color", "hsla("+c+", 0.6)");
+				$(":root").css("--accent-color-dark", "hsl("+c.split(',')[0]+", "+c.split(',')[1]+", 30%");
+			}
+			sc("{{accentcolor}}");
+		</script>
 	</head>
 	<body>
-		<div id="all-content">
-	    <!--put navbar here-->
+		<div id="top-bar">
+				<span id="account-span">
+					<span id="top-title"> ... </span>
+					<span id="top-userinfo">
+						{% if loggedin %}
+							Logged in as <a href="/userinfo"> <b>{{ user.username }}</b> </a>
+							<input type="submit" id="signout-button" value="Sign Out" onclick="logOutRequest();">
+						{% else %}
+							Not logged in
+						{% endif %}
+					</span>
+				</span>
+		</div>
 
+		<div id="all-content">
 			{% block content %}{% endblock %}
 		</div>
 	</body>

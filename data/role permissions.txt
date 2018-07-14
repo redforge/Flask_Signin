@@ -1,0 +1,7 @@
+# Format:
+# rolename:permission1:permission2:permission3
+#
+# any lines starting with an octothorp are comments and are ignored
+#
+admin:read:write:administrate
+viewer:read

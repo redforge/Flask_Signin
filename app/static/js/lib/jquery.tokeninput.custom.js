@@ -6,7 +6,11 @@
  * Licensed jointly under the GPL and MIT licenses,
  * choose which one suits your project best!
  *
+ * Modified by threethan
+ *
  */
+
+var tokenFocusOverride = false; //This is a hack...
 
 (function ($) {
 // Default settings
@@ -21,7 +25,7 @@ var DEFAULT_SETTINGS = {
     jsonContainer: null,
 
 	// Display settings
-    hintText: "Type in a search term",
+    hintText: "",
     noResultsText: "No results",
     searchingText: "Searching...",
     deleteText: "&times;",
@@ -50,7 +54,8 @@ var DEFAULT_SETTINGS = {
     onResult: null,
     onAdd: null,
     onDelete: null,
-    onReady: null
+    onReady: null,
+    onGet: null
 };
 
 // Default classes to use when theming
@@ -401,7 +406,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 var currToken = $(this).data("tokeninput");
                 var match = true;
                 for (var prop in item) {
-                    if (item[prop] !== currToken[prop]) {
+                    if (item[prop] != currToken[prop]) { //EDIT: !== -> !=
                         match = false;
                         break;
                     }
@@ -504,7 +509,11 @@ $.TokenList = function (input, url_or_data, settings) {
             if(found_existing_token) {
                 select_token(found_existing_token);
                 input_token.insertAfter(found_existing_token);
-                input_box.focus();
+                //EDIT
+                if (!tokenFocusOverride) {
+                  input_box.focus();
+                  tokenFocusOverride = false;
+                }
                 return;
             }
         }
@@ -588,7 +597,11 @@ $.TokenList = function (input, url_or_data, settings) {
         selected_token = null;
 
         // Show the input box and give it focus again
-        input_box.focus();
+        // EDIT
+        if (!tokenFocusOverride) {
+          input_box.focus();
+          tokenFocusOverride = false;
+        }
 
         // Remove this token from the saved list
         saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
@@ -630,9 +643,9 @@ $.TokenList = function (input, url_or_data, settings) {
     function show_dropdown() {
         dropdown
             .css({
-                position: "absolute",
-                top: $(token_list).offset().top + $(token_list).outerHeight(),
-                left: $(token_list).offset().left,
+                position: "absolute", //EDIT
+                //top: $(token_list).offset().top + $(token_list).outerHeight(),
+                //left: $(token_list).offset().left,
                 zindex: 999
             })
             .show();
@@ -709,6 +722,11 @@ $.TokenList = function (input, url_or_data, settings) {
                 dropdown.html("<p>"+settings.noResultsText+"</p>");
                 //show_dropdown(); //EDIT
             }
+        }
+        //EDIT
+        callback = settings.onGet;
+        if($.isFunction(callback)) {
+            callback.call();
         }
     }
 

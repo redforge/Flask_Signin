@@ -1,0 +1,19 @@
+@media not screen and (max-width: 600px) {
+  #user-form-wrapper {
+    display: inline-block;
+    width: 95%;
+    max-width: 300px;
+    text-align: center;
+    padding: 25px;
+    margin-top: 10vh;
+  }
+}
+
+#centering-wrapper {
+  text-align: center;
+}
+
+#signup-note {
+  padding: 15px 10px;
+  color: #333333;
+}

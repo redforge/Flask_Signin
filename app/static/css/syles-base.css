@@ -1,13 +1,20 @@
 :root {
-  --accent-color: #4286f4;
-  --accent-hue-shift: hue-rotate(66deg);
-  --main-text-color: black;
+  --accent-color: hsl(0, 0%, 50%);
+  --accent-color-dark: hsl(0, 0%, 30%);
+  --main-text-color: #444444;
   --contrast-text-color: white;
   --dim-text-color: #AAAAAA;
   --main-text-size: 15px;
   --button-bg-color: white;
-  --focus-color: #C8DCFF90;
+  --focus-color: hsl(0, 0%, 50%);
+  --shadow: 0 2px 15px 0 #11111133;
+
   font-family: sans-serif;
+  color: var(--main-text-color);
+  //background: var(--accent-color);
+  background: linear-gradient(to bottom left, var(--accent-color), var(--accent-color-dark));
+  height: 100%;
+  background-attachment: fixed;
 }
 
 select {
@@ -45,6 +52,58 @@ select:hover, select:focus {
   background-color: var(--accent-color);
 }
 
+.content-block {
+  background-color: var(--contrast-text-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 10px;
+  flex-grow: 1;
+  box-shadow: var(--shadow);
+}
+
+#top-bar {
+  margin: -12px;
+  padding: 10px;
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  box-shadow: var(--shadow);
+  line-height: 35px;
+  overflow: hidden;
+}
+
+#top-userinfo {
+  float: right;
+}
+
+#top-title {
+  font-weight: bold;
+  font-size: 150%;
+  vertical-align: middle;
+  margin-bottom: -2px;
+  padding: 0;
+  line-height: 30px;
+  display: inline-block;
+}
+
+#top-bar *:not(div) {
+  margin-left: 10px;
+}
+
+#top-bar a {
+  text-decoration: none;
+  margin-left: -2px;
+  padding: 0;
+  color: var(--accent-color);
+}
+#top-bar a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
 h3 {
   display: inline-block;
   font-weight: normal;
@@ -63,41 +122,45 @@ input[type~="submit"] {
   color: var(--accent-color);
 }
 
-input[type~="submit"]:hover {
-  background-color: var(--accent-color);
-  color: var(--contrast-text-color);
-}
-
 input[type~="submit"]:focus {
   background-color: var(--focus-color);
   color: black;
 }
 
-input[type~="text"] {
+input[type~="submit"]:hover {
+  background-color: var(--accent-color);
+  color: var(--contrast-text-color);
+}
+
+input[type~="text"], input[type~="password"] {
   background-color: var(--button-bg-color);
   border: 1px solid var(--accent-color);
   height: 26px;
   border-radius: 4px;
   font-size: var(--main-text-size);
-  margin: 2px;
+  margin: 2px 3.7px 2px 0;
   padding: 0 5px;
 }
 
-input[type~="text"]:focus {
+input[type~="text"]:focus, input[type~="password"]:focus {
   border-width: 2px;
   padding: 4px;
 }
 
+input[type~="text"]:hover:not(:focus), input[type~="password"]:not(:focus) {
+  box-shadow: inset 0 0 0 1px var(--focus-color);
+}
+
 @media only screen and (max-width: 600px) {
-  input[type~=text] {
+  input[type~="text"], input[type~="password"] {
     padding: 20px;
     width: 79%;
   }
-  input[type~="text"]:focus {
-    border-width: 2px;
+  input[type~="text"]:focus, input[type~="password"]:focus {
     padding: 19px;
   }
-  input[type~=submit]:not(#add-plus) {
+
+  input[type~="submit"]:not(#add-plus) {
     padding: 10px 15px 30px 15px;
   }
   select {
@@ -118,13 +181,24 @@ input[type~="text"]:focus {
   }
 }
 
+@media only screen and (max-width: 400px) {
+  #top-userinfo {
+    font-size: 0;
+  }
+}
+
 #all-content {
   font-family:  Helvetica, Arial, sans-serif;
 }
 
-@media only screen and (min-width: 600px) {
-  .normal-content:not(.nomargin){
+@media not screen and (max-width: 600px) {
+  #all-content{
     margin: 10px 5%;
+  }
+
+  #top-userinfo, #top-title {
+    padding-right: 6%;
+    padding-left: 5%;
   }
 }
 
@@ -134,8 +208,23 @@ input[type~="text"]:focus {
     margin: 0;
   }
 
-  .content-block {
-    padding: 0 15px;
+  .content-block:not(#chart-block){
+    padding: 20px 15px;
+    margin: 1px 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #top-userinfo, #top-title {
+    padding: 0;
+  }
+
+  #top-bar {
+    margin-bottom: 1px;
+    margin-top: 0;
+  }
+  #top-bar input[type~="submit"] {
+    padding: 0 10px;
   }
 }
 

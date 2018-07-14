@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title> User Page - {{user.username}} </title>
+
+  <script>
+
+    function gc() {
+      c = $(':root').css('--accent-color');
+      c = c.substring(4, c.length-1).replace(/ /g, '').split(',');
+      return c;
+    }
+
+    function changeAccent(amount) {
+      prev = gc();
+      newHue = parseInt(prev[0]) + amount;
+      while (newHue > 360) newHue -= 360;
+      prev[0] = newHue;
+      sc(prev.join(','));
+    }
+
+    function saveColor() {
+      c = gc();
+      var xhr = new XMLHttpRequest();
+      var data = new FormData();
+
+      data.append("color", c);
+
+      xhr.open("POST", "/login/settingset");
+      shouldReload = true;
+      xhr.addEventListener("load", handleAccountResponse);
+      xhr.send(data);
+    }
+
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="content-block">
+    <h1> User Settings </h1>
+    <h3> User Color </h3> <br>
+    <input type="submit" value="<<" onclick="changeAccent(+50)">
+    <input type="submit" value="<" onclick="changeAccent(+10)">
+    <b style="color: var(--accent-color); font-size: 120%; text-decoration: underline;"> Example </b>
+    <input type="submit" value=">" onclick="changeAccent(-10)">
+    <input type="submit" value=">>" onclick="changeAccent(-50)">
+    <br>
+    <input type="submit" value="Save Color" onclick="saveColor()">
+  </div>
+
+  <div class="content-block">
+    <h1> Shortcuts </h1>
+    <form action="/">
+      <input type="submit" value="Go to the main page">
+    </form>
+  </div>
+{% endblock %}
