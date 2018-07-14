@@ -12,7 +12,7 @@ function filter (s, displayType) {
   var options = {
     id: "index",
     shouldSort: true,
-    threshold: 0.1,
+    threshold: 0.5,
     tokenize: true,
     location: 0,
     distance: 100,
