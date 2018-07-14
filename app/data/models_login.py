@@ -23,8 +23,7 @@ class User(UserMixin, Base_login):
         self.password_hash  = password_hash
         if (hue==-1):
             hue = randint (0, 360)
-            #TODO
-        self.color = "{}, 75%, 35%".format(hue)
+        self.color = "{}, 75%, 45%".format(hue)
 
 @login_manager.user_loader
 def load_user(id):

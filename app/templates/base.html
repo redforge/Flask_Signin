@@ -13,7 +13,8 @@
 			function sc(c) {
 				$(":root").css("--accent-color", "hsl("+c+")");
 				$(":root").css("--focus-color", "hsla("+c+", 0.6)");
-				$(":root").css("--accent-color-dark", "hsl("+c.split(',')[0]+", "+c.split(',')[1]+", 30%");
+				$(":root").css("--accent-color-dark" , "hsl("+( parseInt(c.split(',')[0])+30) +", "+c.split(',')[1]+", 30%");
+				$(":root").css("--accent-color-light", "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 60%");
 			}
 			sc("{{accentcolor}}");
 		</script>
