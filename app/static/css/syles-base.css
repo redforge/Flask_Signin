@@ -147,7 +147,7 @@ input[type~="text"]:focus, input[type~="password"]:focus {
   padding: 4px;
 }
 
-input[type~="text"]:hover:not(:focus), input[type~="password"]:not(:focus) {
+input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus) {
   box-shadow: inset 0 0 0 1px var(--focus-color);
 }
 
@@ -308,4 +308,13 @@ label.css-label {
 
 input[type=checkbox].css-checkbox:checked:focus + label.css-label, input[type=checkbox].css-checkbox:checked + label.css-label:focus {
   box-shadow: inset 100px 0 #FFFFFF5C;
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
