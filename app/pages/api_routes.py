@@ -43,7 +43,8 @@ def api_edit():
 				camper = db_session.query(Camper).get(id)
 				#print(id);
 				if   (field_to_set == 'location'):
-					camper.location = new_value
+					from app.data.get_time import get_time
+					camper.location = new_value + " ({})".format(get_time())
 				elif (field_to_set == 'firstname'):
 					camper.firstname= new_value
 				elif (field_to_set == 'lastname'):
@@ -71,6 +72,24 @@ def api_add():
 			i += 1
 		db_session.commit()
 		return 'success'
+
+@app.route('/api/backup')
+@app.route('/forcebackup')
+@login_required
+def backup_db_route():
+	if (has_permission(current_user.role, 'administrate')):
+		from app.data.camper_editing import backup_database
+		filename = backup_database()
+		reset_locs()
+		return 'Backed up as \"{}\" in serverside data folder'.format(filename)
+	else:
+		return render_template('denied.html')
+
+
+def reset_locs():
+	for c in db_session.query(Camper):
+		c.location = 'Not Signed In'
+	db_session.commit()
 
 # @app.before_request
 def before_request():

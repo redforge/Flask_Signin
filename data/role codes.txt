@@ -4,4 +4,4 @@
 # any lines starting with an octothorp are comments and are ignored
 #
 admin:wearYourNameTag
-viewer:crafty-parent
+viewer:craftyView

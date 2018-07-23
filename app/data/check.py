@@ -1,7 +1,8 @@
 import os.path
-from app.data.database import init_db
+from app.data.database import init_db, db_path
+
 def db_exists():
-    return os.path.isfile('./data/current.db')
+    return os.path.isfile('.' + db_path)
 
 def check_db():
     print ('Performing database check')

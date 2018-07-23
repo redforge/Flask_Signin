@@ -22,6 +22,14 @@ def add_camper(firstname, lastname, nickname='', location='unset', note='', comm
 	if (commit):
 		db_session.commit()
 
-
 def get_locations():
 	return location_list
+
+def backup_database():
+	from shutil import copy2
+	from app.data.database import db_path
+	from app.data.get_time import get_timedate
+
+	newname = get_timedate()
+	copy2('.'+db_path, './data/'+newname)
+	return newname

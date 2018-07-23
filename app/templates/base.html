@@ -13,25 +13,30 @@
 			function sc(c) {
 				$(":root").css("--accent-color", "hsl("+c+")");
 				$(":root").css("--focus-color", "hsla("+c+", 0.6)");
-				$(":root").css("--accent-color-dark" , "hsl("+( parseInt(c.split(',')[0])+30) +", "+c.split(',')[1]+", 30%");
-				$(":root").css("--accent-color-light", "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 60%");
+				acDark = "hsl("+( parseInt(c.split(',')[0])+30) +", "+c.split(',')[1]+", 25%)"
+				acLight= "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 40%)"
+				$(":root").css("--accent-color-dark" , acDark);
+				$(":root").css("--accent-color-light", acLight);
+				$("#bg").css("background", "linear-gradient(to bottom left,"+acLight+","+acDark+")");
 			}
-			sc("{{accentcolor}}");
+			$(document).ready(function(){sc("{{accentcolor}}");});
+
 		</script>
 	</head>
 	<body>
+		<div id="bg"></div>
 		<div id="top-bar">
-				<span id="account-span">
-					<span id="top-title"> ... </span>
-					<span id="top-userinfo">
-						{% if loggedin %}
-							Logged in as <a href="/userinfo"> <b>{{ user.username }}</b> </a>
-							<input type="submit" id="signout-button" value="Sign Out" onclick="logOutRequest();">
-						{% else %}
-							Not logged in
-						{% endif %}
-					</span>
+			<span id="account-span">
+				<span id="top-title"> ... </span>
+				<span id="top-userinfo">
+					{% if loggedin %}
+						Logged in as <a href="/userinfo"> <b>{{ user.username }}</b> </a>
+						<input type="submit" id="signout-button" value="Sign Out" onclick="logOutRequest();">
+					{% else %}
+						Not logged in
+					{% endif %}
 				</span>
+			</span>
 		</div>
 
 		<div id="all-content">

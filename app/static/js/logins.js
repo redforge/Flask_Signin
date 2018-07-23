@@ -3,7 +3,6 @@ API_SIGNUP_URL= "/login/signup"
 API_LOGOUT_URL= "/login/logout"
 var shouldAlert = false;
 
-
 function loginRequest() {
   sendAccountRequest(API_LOGIN_URL);
 }
@@ -37,7 +36,6 @@ function sendAccountRequest(url, logout=false) {
     data.append("username", username);
     data.append("password", password);
     data.append("rolecode", rolecode);
-
   }
 
   xhr.open("POST", url);
@@ -52,7 +50,7 @@ var handleAccountResponse = ({ target }) => {
     if(shouldAlert)
       alert("Account created successfully. You will be now taken to the login page.")
     if(shouldReload)
-      location.reload();
+      window.location.replace("/");
   } else {
     console.log(target.responseText);
     document.getElementById("login-note").innerHTML = "<br>" + target.responseText;

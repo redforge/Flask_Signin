@@ -1,10 +1,11 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 from app import app
 from sqlalchemy import Column, Integer, String
 from app import login_manager, flask_bcrypt
 from app.data.database_login import Base_login, db_session_login
 from app.data.models_login import User
 from flask_login import login_user, login_required, current_user, logout_user
+from app.data.user_roles import has_permission
 
 @app.route('/login/login', methods = ['POST'])
 def login_user_page():
@@ -63,10 +64,24 @@ def change_user_color_lol():
     db_session_login.commit()
     return ("success")
 
+@app.route('/login')
+def login_page():
+    if current_user.is_authenticated:
+        return redirect('/autoredirect', code=302)
+
+    return(render_template('loginpage.html') )
+
 @app.route('/')
 @app.route('/index')
-def login_page():
-    return(render_template('loginpage.html') )
+@app.route('/autoredirect')
+def auto_redirect():
+    url = '/login'
+    if current_user.is_authenticated:
+        if has_permission(current_user.role, 'write'):
+            url = '/readwrite'
+        else:
+            url = '/readonly'
+    return redirect(url, code=302)
 
 @app.route('/userinfo')
 @login_required

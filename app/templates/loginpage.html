@@ -4,9 +4,7 @@
   <title> P&C Signin - Home </title>
   <script src="{{ url_for('static', filename='js/logins.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login-page.css') }}">
-  {% if loggedin %}
-    <meta http-equiv="refresh" content="0; URL='/readwrite'" />
-  {% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -15,13 +13,16 @@
     <div id="user-form-wrapper" class="content-block">
       {% if loggedin %}
         <h1> You are logged in as {{ user.username }}! </h1>
-        <a href="/readwrite"> Click here if you are not redirected automatically </a>
+        <a href="/autoredirect"> Click here if you are not redirected automatically </a>
       {% else %}
         <h1> Logged Out </h1>
         <form id="login-form" onsubmit="javascript:loginRequest(); return false;">
           <input id="username-box" type="text"     placeholder="Username"> <br>
           <input id="password-box" type="password" placeholder="Password">
           <br>
+
+          <!-- This is so the hidden sign up button isn't called when the user presses enter -->
+          <input type="submit" class="hidden" value="Log In">
 
           <div id="signup-extra" class="hidden">
             <input id="password-confirm-box" type="password" placeholder="Confirm Password"> <br>

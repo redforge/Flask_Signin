@@ -19,22 +19,22 @@ $(document).ready(function() {
   //Bind for directly editable items
   $(".editable").bind("dblclick",
     function(){
-          $(this).attr("contentEditable",true);
-          $(this).focus();
+      $(this).attr("contentEditable",true);
+      $(this).focus();
 
-          setNote("edit-save-message", "Click outside of the text box to save.");
-      }).blur(
-    function() {
-          $(this).attr("contentEditable", false);
-          fieldToSet = $(this).prop("id");
-          newValue = $(this).text();
-          idToSet = $(this).parent().prop("id");
-          //console.log (fieldToSet+" "+newValue+" "+idToSet)
-          shouldReload = false;
-          sendRequest(fieldToSet, newValue, idToSet);
+      setNote("edit-save-message", "Click outside of the text box to save.");
+    }).blur(
+      function() {
+        $(this).attr("contentEditable", false);
+        fieldToSet = $(this).prop("id");
+        newValue = $(this).text();
+        idToSet = $(this).parent().prop("id");
+        //console.log (fieldToSet+" "+newValue+" "+idToSet)
+        shouldReload = false;
+        sendRequest(fieldToSet, newValue, idToSet);
 
-          setNote("edit-save-message", "Change saved.");
-    }
+        setNote("edit-save-message", "Change saved.");
+      }
   );
   refindColumns();
 
@@ -122,11 +122,15 @@ function refindColumns() {
   $("th:not(.hidden)").last().addClass("last-col");
 }
 
-//Function called when any normal check box is changed
-function normalCheck(cb, changeVal=false, newVal=false, editSelect=true) {
+function resetAllCheck() {
   document.getElementsByClassName("select-all-box")[0].checked = false;
+}
+
+//Function called when any normal check box is changed
+function normalCheck(cb, changeVal=false, newVal=false, editSelect=true, isChecked="") {
+  if (isChecked == "") isChecked=cb.checked;
   var row = $(cb).parent().parent()
-  isChecked = cb.checked; //This is here so we can override it if changing the value
+
   if (changeVal) {
     $(cb).prop("checked", newVal);
     isChecked = newVal;
@@ -154,8 +158,9 @@ function normalCheck(cb, changeVal=false, newVal=false, editSelect=true) {
 
 //Sets all the checkboxes to the same value, called when the top box is toggled
 function checkAll(cb) {
+  var mainVal = cb.checked;
   var checkBoxes = document.forms["camperList"].elements["select-box"];
-  //cb.checked = !cb.checked;
+
   for (var i = 0; i < checkBoxes.length; i++) {
     //Set values
     cbi = checkBoxes[i];
@@ -163,12 +168,7 @@ function checkAll(cb) {
 
     //Check if row isn't hidden
     if (!$(row).hasClass("hidden")) {
-      //Set values
-      cbi.checked=cb.checked;
-      //Set or unset highlight
-      if (cb.checked) $(row).addClass("highlight");
-      else $(row).removeClass("highlight");
-      //$(row).attr("class", setSubstringExistance( $(row).attr("class"), " highlight", cb.checked));
+      normalCheck(cbi, changeVal=true, newVal=mainVal);
     }
   }
 }

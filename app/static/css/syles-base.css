@@ -12,19 +12,29 @@
 
   font-family: sans-serif;
   color: var(--main-text-color);
-  background: linear-gradient(to bottom left, var(--accent-color-light), var(--accent-color-dark));
+}
+
+#bg {
+  /*This fix is for chrome, which doesn't play nice with css variables. Actually set by js*/
+  background: var(--accent-color-light);
   height: 100%;
-  background-attachment: fixed;
+  width: 100%;
+  display: block;
+  position: fixed;
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
 }
 
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;       /* remove default arrow */
-  padding-right:13px;
   border: 1px solid var(--accent-color);
-  padding-left: 1px;
-  margin-right: 1px;
+  padding: 0 4px;
+  padding-right:20px;
 
   height: 26px;
   border-radius: 4px;
@@ -36,18 +46,18 @@ select {
 select:hover, select:focus {
   color: black;
   border-width: 2px;
-  padding-left: 0;
-  margin-right: 0;
+  padding: 0 3px;
+  padding-right:19px;
 }
 
 .select-arrow {
   pointer-events: none;
   display: inline-block;
   width: 15px;
-  height: 26px;
-  margin-left: -18px;
-  margin-bottom: -7.5px;
-  border-radius: 0 4px 4px 0;
+  height: 25px;
+  margin-left: -20px;
+  margin-bottom: -7px;
+  border-radius: 0 3px 3px 0;
   background: url("../img/dropdown-arrow.svg") 50% no-repeat;
   background-color: var(--accent-color);
 }
@@ -175,9 +185,9 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
   }
   .select-arrow {
     padding-left: 4px;
-    margin-left: -25px;
-    margin-bottom: -17px;
-    height: 45px;
+    margin-left: -23px;
+    margin-bottom: -15px;
+    height: 43px;
   }
 }
 
@@ -194,6 +204,7 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
 @media not screen and (max-width: 600px) {
   #all-content{
     margin: 10px 5%;
+    padding-top: 1px;
   }
 
   #top-userinfo, #top-title {
