@@ -1,6 +1,6 @@
 @media not screen and (max-width: 600px) {
   td, th {
-    border: 1px solid var(--accent-color);//#11111155;
+    border: 1px solid var(--accent-color);
   }
   #chart-wrapper {
     position: relative;
@@ -139,9 +139,23 @@ tr:not(.highlight) + .highlight {
 
 }
 
+/*chrome hack for proper right side borders*/
+@supports (-webkit-font-smoothing:antialiased) {
+  @media not screen and (max-width: 600px) {
+    td, th {
+      border-right-width: 0;
+    }
+  }
+}
+
 /* Safari only hack, these box shadows dont work in safari for some reason */
 @media not all and (min-resolution:.001dpcm) { @media {
   .highlight, .highlight.odd-row {
     background-color: var(--focus-color);
+  }
+  @media not screen and (max-width: 600px) {
+    td, th {
+      border-right-width: 1px;
+    }
   }
 }
