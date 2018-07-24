@@ -157,8 +157,7 @@ function normalCheck(cb, changeVal=false, newVal=false, editSelect=true, isCheck
 }
 
 //Sets all the checkboxes to the same value, called when the top box is toggled
-function checkAll(cb) {
-  var mainVal = cb.checked;
+function checkAll(mainVal) {
   var checkBoxes = document.forms["camperList"].elements["select-box"];
 
   for (var i = 0; i < checkBoxes.length; i++) {

@@ -73,7 +73,7 @@
 {% macro chartonly(campers, editable=true) -%}
   <table>
     <thead>
-      {% if editable %}<th class="all-check"> <input class="select-all-box" type="checkbox" style="border: 2px solid white;" onchange="checkAll(this)"> </th>{% endif %}
+      {% if editable %}<th class="all-check"> <input class="select-all-box" type="checkbox" style="border: 2px solid white;" onchange="checkAll(this.checked)"> </th>{% endif %}
       <th class="id-col"> ID </th>
       <th class="fn-col"> First Name</th>
       <th class="ln-col"> Last Name(s)</th>
