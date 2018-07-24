@@ -106,13 +106,13 @@ tr {
 tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
   /*all highlights expect first*/
   /*shadows order: left, right, fill*/
-  box-shadow: -3px 0px 2px -1px grey, 3px 0px 2px -1px grey, inset 0 100vh 0 0 var(--focus-color);
+  box-shadow: -3px 0px 2px -1.5px grey, 3px 0px 2px -1.5px grey, inset 0 100vh 0 0 var(--focus-color);
 }
 
 tr:not(.highlight) + .highlight {
   /*first highlight*/
   /*shadows order: top, left, right, fill*/
-  box-shadow: 0px -3px 2px -1px #80808080, -3px 0px 2px -1px grey, 3px 0px 2px -1px grey, inset 0 100vh 0 0 var(--focus-color);
+  box-shadow: 0px -3px 2px -1px #80808080, -3px 0px 2px -1.5px grey, 3px 0px 2px -1.5px grey, inset 0 100vh 0 0 var(--focus-color);
 }
 
 .highlight + tr:not(.highlight) {

@@ -85,7 +85,7 @@
       <form id="camperList">
         {% for camper in campers %}
         <tr id="{{camper.id}}">
-          {% if editable %}<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this) resetAllCheck()"></td>{% endif %}
+          {% if editable %}<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this);resetAllCheck();"></td>{% endif %}
           <td class="id-col"> {{camper.id}} </td>
           <td class="fn-col {% if editable %}editable{% endif %}" id="firstname"> {{camper.firstname}} </td>
           <td class="ln-col {% if editable %}editable{% endif %}" id="lastname" > {{camper.lastname}} </td>
