@@ -13,8 +13,10 @@ $(document).ready(function() {
   try {
     //Stuff that will run if its the full table
     $(".select-all-box")[0].checked = false;
-    checkAll({"checked":false});
-  }catch{}
+    checkAll(false);
+  }catch{
+    console.log("Seems read only")
+  }
 
   //Bind for directly editable items
   $(".editable").bind("dblclick",
@@ -145,13 +147,13 @@ function normalCheck(cb, changeVal=false, newVal=false, editSelect=true, isCheck
     $(row).addClass("highlight");
     if (editSelect) {
       tokenFocusOverride = true;
-      tokenbox.tokenInput("add", { id: $(row).prop("id"), name: getName()} );
+      try { tokenbox.tokenInput("add", { id: $(row).prop("id"), name: getName()} ); } catch {}
     }
   } else {
     $(row).removeClass("highlight");
     if (editSelect) {
       tokenFocusOverride = true;
-      tokenbox.tokenInput("remove", { id: $(row).prop("id"), name: getName()} );
+      try { tokenbox.tokenInput("remove", { id: $(row).prop("id"), name: getName()} ); } catch {}
     }
   }
 }
