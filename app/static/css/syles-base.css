@@ -231,6 +231,7 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
   #top-bar {
     margin-bottom: 1px;
     margin-top: 0;
+    margin-right: 0;
   }
   #top-bar input[type~="submit"] {
     padding: 0 10px;
