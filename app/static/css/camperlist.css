@@ -18,6 +18,11 @@
   margin-bottom: 10px;
 }
 
+#above-chart {
+  min-width: 600px;
+  float:left;
+}
+
 @media only screen and (max-width: 600px) {
   #filterbox {
     width: 100%;
@@ -26,18 +31,19 @@
   }
 }
 
+@media only screen and (max-width: 800px) {
+  #above-chart {
+    min-width: 0;
+  }
+}
+
+
 .check, .all-check {
   width: 32px;
 }
 
 #chart-wrapper {
   clear: both;
-}
-
-#above-chart {
-  min-width: 600px;
-  max-width: 60%;
-  float:left;
 }
 
 #topcheck, #listcheck, .check, .all-check {
