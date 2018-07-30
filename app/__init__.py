@@ -18,4 +18,4 @@ if not os.path.isfile('./data/logins.db'):
     from app.data.database_login import init_db_login
     init_db_login()
 
-from app.pages import page_routes, scan_page, api_routes, login_routes
+from app.routes import page_routes, scan_page, api_routes, login_routes, redirect_https
