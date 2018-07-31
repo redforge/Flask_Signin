@@ -31,6 +31,8 @@ function relocateBox() {
     $(dd).css("left", "10px");
     $(dd).css("width", "95%");
     $(dd).css("max-width", "100%");
+    $(dd).css("max-height", "50vh");
+    $(dd).css("overflow", "scroll");
   }
 }
 function relocateBoxNonMobile() {
@@ -53,7 +55,7 @@ function relocateBoxNonMobile() {
   }
 
   var targetY = xy.y + OFFSET.y;
-  if (targetY + boxHeight > docHeight) {
+  if (boxHeight + targetY > docHeight) {
     targetY = docHeight - boxHeight - 30 - OFFSET.y;
     $(dd).css("transition-duration","0s");
   }

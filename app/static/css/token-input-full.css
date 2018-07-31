@@ -129,6 +129,17 @@ div.token-input-dropdown {
   z-index: 20;
 }
 
+@media only screen and (max-width: 100px) {
+  div.token-input-dropdown {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width:, "95%";
+    max-width: 100%;
+    max-height: 50vh;
+    overflow: scroll;
+  }
+}
 div.token-input-dropdown p {
   font-size: 10pt;
   margin: 0;
