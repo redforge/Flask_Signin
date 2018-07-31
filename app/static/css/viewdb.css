@@ -58,7 +58,10 @@ hr {
     box-shadow: none;
     border-radius: 0;
   }
-
+  #broken-arrow-fix::before {
+    content: "\A";
+    white-space: pre;
+  }
   .c-inner {
     padding: 20px;
   }
@@ -79,5 +82,4 @@ div .msg {
   float: right;
   margin-right: 20%;
   height: 20px;
-  width: 35px;
 }

@@ -21,13 +21,14 @@
 			<div class="content-text">
 				<form id="actionsForm" onsubmit="console.log('aa');submitRequest();return false;">
 					Select an action:
+					<span id=broken-arrow-fix></span>
 					<select id="action-select" onchange="changeActionMeta(this)">
 						<option value="sign-in"> Sign in / Change location </option>
 						<option value="sign-out">Sign out </option>
 						<option value="remove">  Remove people from the list </option>
 						<option value="add">     Add new people to the list </option>
 					</select>
-					<span class="select-arrow"> </span>
+					<span class="select-arrow"></span>
 					<br>
 
 					<div id="sign-in-options">
@@ -72,8 +73,12 @@
 						<form id="add-list-form">
 							<span id="add-list">
 							</span>
-							<span class="content-text shorten"> <small>Entries with an empty first name will be ignored.</small>
-							<input type="submit" value="+1" id="add-plus" onclick="javascript:appendNewEntry();return false;"> </span>
+							<span class="content-text shorten"> <small>Pressing enter will also add an entry</small>
+							<input type="submit" value="Add Entry" id="add-plus" onclick="javascript:appendNewEntry();return false;"> </span>
+							<div style="clear:both;" class="msg">
+								<span style="display: inline-block"> Entries with an empty first name will be ignored.</span>
+								<span style="display: inline-block"> Separate multiple names, if applicable, with spaces. </span>
+								</div>
 						</form>
 					</div>
 					<hr class="shorten">
