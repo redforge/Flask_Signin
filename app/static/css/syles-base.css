@@ -88,6 +88,7 @@ select:hover, select:focus {
 
 #top-userinfo {
   float: right;
+  margin-right: 20px;
 }
 
 #top-title {
@@ -103,6 +104,7 @@ select:hover, select:focus {
   white-space: nowrap;
   display: inline-block;
   height: 30px;
+  background-color: white;
 }
 
 #top-bar *:not(div) {
@@ -198,11 +200,9 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
     margin-bottom: -17px;
     height: 45px;
   }
-  #top-title {
-    max-width: 65%;
-  }
   #top-userinfo:not(a){
     font-size: 0;
+    margin-right: 10px;
   }
   #top-userinfo a{
     font-size: 16px;
@@ -242,8 +242,13 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
     padding-top: 51px;
   }
 
-  #top-userinfo, #top-title {
+  #top-userinfo {
     padding: 0;
+  }
+
+  #top-title {
+    padding: 0;
+    max-width: 61%;
   }
 
   #top-bar {
