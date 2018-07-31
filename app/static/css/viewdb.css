@@ -10,15 +10,17 @@
   min-width: 245px;
 }
 
-.h-flex {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
+@media not screen and (max-width: 600px) {
+  .h-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
-.h-flex .content-block {
-  margin-bottom: 0px;
-  width: 100%;
+  .h-flex .content-block {
+    margin-bottom: 0px;
+    width: 100%;
+  }
 }
 
 .content-text {
@@ -46,10 +48,6 @@ hr {
 }
 
 @media only screen and (max-width: 600px) {
-  .h-flex {
-    width: 100%;
-    display: flex;
-  }
   #chart-block {
     clear: both;
     padding-left: 0;
@@ -70,6 +68,7 @@ hr {
 .msg {
   color: grey;
 }
+
 div .msg {
   margin-top: 8px;
 }
