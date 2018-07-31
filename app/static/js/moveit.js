@@ -24,15 +24,6 @@ function hideBox() {
 function relocateBox() {
   if (window.innerWidth > 600) {
     relocateBoxNonMobile();
-  } else {
-    var dd = $("div.token-input-dropdown")[0];
-    $(dd).css("position", "fixed");
-    $(dd).css("bottom", "10px");
-    $(dd).css("left", "10px");
-    $(dd).css("width", "95%");
-    $(dd).css("max-width", "100%");
-    $(dd).css("max-height", "50vh");
-    $(dd).css("overflow", "scroll");
   }
 }
 function relocateBoxNonMobile() {
