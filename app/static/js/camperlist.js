@@ -1,6 +1,8 @@
 var DBLCLICK_TIMER = 250;
-var clickCountDc = 0;
+var currentEditableField = null;
+
 //Most of this is to prevent counting doubleclick
+var clickCountDc = 0;
 var timerDc, prevElemDc, functionDc;
 
 $(document).ready(function() {
@@ -21,12 +23,14 @@ $(document).ready(function() {
   //Bind for directly editable items
   $(".editable").bind("dblclick",
     function(){
+      currentEditableField = this;
       $(this).attr("contentEditable",true);
       $(this).focus();
 
       setNote("edit-save-message", "Click outside of the text box to save.");
     }).blur(
       function() {
+        currentEditableField = null;
         $(this).attr("contentEditable", false);
         fieldToSet = $(this).prop("id");
         newValue = $(this).text();
@@ -40,7 +44,7 @@ $(document).ready(function() {
   );
   refindColumns();
 
-  //Big chunk of code that just selects stuff on a single, but not doubt, click
+  //Big chunk of code that just selects stuff on a single, but not double, click
   $("#chart-wrapper td:not('input'):not('.check')").bind("click",
     function() {
       //Sets the timer
@@ -89,7 +93,23 @@ $(document).ready(function() {
     }
     e.preventDefault();
   });
+
+  colVis(".id-col",$(".id-vis").first().prop("checked"));
+  colVis(".fn-col",$(".fn-vis").first().prop("checked"));
+  colVis(".ln-col",$(".ln-vis").first().prop("checked"));
+  colVis(".nk-col",$(".nk-vis").first().prop("checked"));
+  colVis(".lc-col",$(".lc-vis").first().prop("checked"));
+  colVis(".nt-col",$(".nt-vis").first().prop("checked"));
 });
+
+window.onbeforeunload = function (e) {
+  fieldToSet = $(currentEditableField).prop("id");
+  newValue = $(currentEditableField).text();
+  idToSet = $(currentEditableField).parent().prop("id");
+  shouldReload = true;
+  sendRequest(fieldToSet, newValue, idToSet);
+  return undefined;
+}
 
 $(document).keyup(function(e) {
   if(e.keyCode==32) {
@@ -100,6 +120,17 @@ $(document).keyup(function(e) {
     }
   }
 });
+
+function colVis(s,c) {
+  setVisibilityBySelector(s,c);
+  eAll = $("thead th");
+  var eVis=[];
+  for (var i=0; i<eAll.length; i++) {
+    $(eVis[eVis.length-1]).removeClass("last-col");
+    if (!$(eAll[i]).hasClass("hidden")) eVis.push(eAll[i]);
+  }
+  $(eVis[eVis.length-1]).addClass("last-col");
+}
 
 function refindOdds() {
   var i=0;
@@ -124,13 +155,11 @@ function refindColumns() {
   $("th:not(.hidden)").last().addClass("last-col");
 }
 
-function resetAllCheck() {
-  document.getElementsByClassName("select-all-box")[0].checked = false;
-}
-
 //Function called when any normal check box is changed
 function normalCheck(cb, changeVal=false, newVal=false, editSelect=true, isChecked="") {
   if (isChecked == "") isChecked=cb.checked;
+  if (!isChecked && !newVal) $(".select-all-box").first().prop("checked",false);
+
   var row = $(cb).parent().parent()
 
   if (changeVal) {

@@ -13,14 +13,15 @@
 
 #filterbox {
   float: right;
-  margin-top: -20pt;
   margin-right: 0;
+  margin-top: -10px;
   margin-bottom: 10px;
 }
 
 #above-chart {
   min-width: 600px;
   float:left;
+  max-width: calc(100% - 275px);
 }
 
 @media only screen and (max-width: 600px) {
@@ -29,11 +30,18 @@
     margin-top: auto;
     margin-bottom: 10px;
   }
+  #above-chart {
+    max-width: 100%;
+  }
 }
 
 @media only screen and (max-width: 800px) {
   #above-chart {
     min-width: 0;
+    max-width: 100%;
+  }
+  #filterbox {
+    margin-top: 0;
   }
 }
 
@@ -98,6 +106,9 @@ th:not(.last-col){
 /*th:last-child{
   border-right-width: 0;
 }*/
+td[contenteditable~=true] {
+  outline: 2px dashed #00000090;
+}
 
 /* odd-row is given by jQuery */
 tbody tr.odd-row {

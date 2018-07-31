@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+	{{ chart.visblock() }}
 	<div class="content-block" id="chart-block" >
 		{{ chart.fullbody(campers, editable=false) }}
 	</div>

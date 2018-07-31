@@ -68,16 +68,22 @@ select:hover, select:focus {
   margin: 20px 10px;
   flex-grow: 1;
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 #top-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
   margin: -8px;
+  margin-top: 0;
   padding: 10px;
   height: 30px;
   background-color: white;
   box-shadow: var(--shadow);
   line-height: 35px;
   overflow: hidden;
+  z-index: 1000;
 }
 
 #top-userinfo {
@@ -85,13 +91,18 @@ select:hover, select:focus {
 }
 
 #top-title {
+  overflow: hidden;
+  position: absolute;
   font-weight: bold;
   font-size: 150%;
   vertical-align: middle;
   margin-bottom: -2px;
   padding: 0;
-  line-height: 30px;
+  max-width: 40%;
+  line-height: 33px;
+  white-space: nowrap;
   display: inline-block;
+  height: 30px;
 }
 
 #top-bar *:not(div) {
@@ -184,25 +195,28 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
   .select-arrow {
     padding-left: 4px;
     margin-left: -23px;
-    margin-bottom: -15px;
-    height: 43px;
+    margin-bottom: -17px;
+    height: 45px;
   }
-}
-
-@media only screen and (max-width: 400px) {
-  #top-userinfo {
+  #top-title {
+    max-width: 65%;
+  }
+  #top-userinfo:not(a){
     font-size: 0;
+  }
+  #top-userinfo a{
+    font-size: 16px;
   }
 }
 
 #all-content {
   font-family:  Helvetica, Arial, sans-serif;
+  padding-top: 40px;
 }
 
 @media not screen and (max-width: 600px) {
   #all-content{
     margin: 10px 5%;
-    padding-top: 1px;
   }
 
   #top-userinfo, #top-title {
@@ -222,6 +236,10 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
     margin: 1px 0;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  #all-content {
+    padding-top: 51px;
   }
 
   #top-userinfo, #top-title {

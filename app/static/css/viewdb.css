@@ -6,6 +6,10 @@
   clear: both;
 }
 
+#signin-custom-location {
+  min-width: 245px;
+}
+
 .h-flex {
   display: flex;
   flex-direction: row;
@@ -62,6 +66,9 @@ hr {
 
 .msg {
   color: grey;
+}
+div .msg {
+  margin-top: 8px;
 }
 
 .add-fn, .add-ln, .add-nk, .add-ns {

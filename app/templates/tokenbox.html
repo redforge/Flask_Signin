@@ -7,8 +7,8 @@
 {% endmacro %}
 
 {% macro boxonly(campers) -%}
-  <div  tabindex="0" class="tokens" onclick="showBox();">
-    <input id = "tokeninput">
+  <div tabindex="0" class="tokens" onclick="showBox();">
+    <input id="tokeninput">
   </div>
 
   <script async>
@@ -30,6 +30,8 @@
 {% macro fullblock(campers) -%}
 	<div id="tokenBlock" class="content-block">
 		<h1> Quick Select </h1>
+
   	{{ boxonly(campers) }}
+		<div class="msg" style="margin-top:20px;"> Start typing for suggestions. The result is exactly the same as selecting campers from the chart, use whichever's easiest. </div>
 	</div>
 {% endmacro %}

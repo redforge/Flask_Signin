@@ -9,16 +9,7 @@
 
 
 	<script>
-		function colVis(s,c) {
-			setVisibilityBySelector(s,c);
-			eAll = $("thead th");
-			var eVis=[];
-			for (var i=0; i<eAll.length; i++) {
-				$(eVis[eVis.length-1]).removeClass("last-col");
-				if (!$(eAll[i]).hasClass("hidden")) eVis.push(eAll[i]);
-			}
-			$(eVis[eVis.length-1]).addClass("last-col");
-		}
+
 	</script>
 {% endmacro %}
 
@@ -26,12 +17,14 @@
   <div id="visibilityBlock" class="content-block">
     <h1> What to Show </h1>
     <div class="content-text">
+			<div class="msg"> Use this to show or hide columns from the chart, if you want to. Useful for decluttering on mobile. </div><hr>
       <form id="visibilityForm">
-        <label> <h3> ID Code          </h3> <input type="checkbox"         onchange="colVis('.id-col',this.checked)"> </label> <br>
-        <label> <h3> First Name 			</h3> <input type="checkbox" checked onchange="colVis('.fn-col',this.checked)"> </label> <br>
-        <label> <h3> Last Name				</h3> <input type="checkbox" checked onchange="colVis('.ln-col',this.checked)"> </label> <br>
-        <label> <h3> Current Location	</h3> <input type="checkbox" checked onchange="colVis('.lc-col',this.checked)"> </label> <br>
-        <label> <h3> Notes						</h3> <input type="checkbox" checked onchange="colVis('.nt-col',this.checked)"> </label> <br>
+        <label> <h3> ID Code          </h3> <input class="id-vis" type="checkbox"         onchange="colVis('.id-col',this.checked)"> </label> <br>
+        <label> <h3> First Name 			</h3> <input class="fn-vis" type="checkbox" checked onchange="colVis('.fn-col',this.checked)"> </label> <br>
+        <label> <h3> Last Name				</h3> <input class="ln-vis" type="checkbox" checked onchange="colVis('.ln-col',this.checked)"> </label> <br>
+				<label> <h3> Nickname					</h3> <input class="nk-vis" type="checkbox" checked onchange="colVis('.nk-col',this.checked)"> </label> <br>
+				<label> <h3> Current Location	</h3> <input class="lc-vis" type="checkbox" checked onchange="colVis('.lc-col',this.checked)"> </label> <br>
+        <label> <h3> Notes						</h3> <input class="nt-vis" type="checkbox" checked onchange="colVis('.nt-col',this.checked)"> </label> <br>
       </form>
     </div>
   </div>
@@ -43,14 +36,13 @@
 
       <div class="content-text" id="above-chart">
 				{% if editable %}
-        Double click on name or notes to edit.
+        Double click on any name or notes to edit. Number next to location is time of most recent change.
 				<span id="edit-save-message" class="msg">
           <!-- intentionally empty for js -->
         </span>
 				{% endif %}
       </div>
-
-      <input type="text" id="filterbox" placeholder="Search &amp; Filter" onkeyup="filter(this.value, 'ordered')">
+			<input type="text" id="filterbox" placeholder="Search &amp; Filter" onkeyup="filter(this.value, 'ordered')">
     </div>
 		<br>
 
@@ -77,7 +69,7 @@
       <th class="id-col"> ID </th>
       <th class="fn-col"> First Name</th>
       <th class="ln-col"> Last Name(s)</th>
-			<th class="nk-col"> Nickname</th>
+			<th class="nk-col"> Nickname(s)</th>
       <th class="lc-col"> Location</th>
       <th class="nt-col"> Notes</th>
     </thead>
@@ -85,12 +77,12 @@
       <form id="camperList">
         {% for camper in campers %}
         <tr id="{{camper.id}}">
-          {% if editable %}<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this);resetAllCheck();"></td>{% endif %}
+          {% if editable %}<td class="check"> <input type="checkbox" name="select-box" value="{{camper.id}}" onchange="normalCheck(this);"></td>{% endif %}
           <td class="id-col"> {{camper.id}} </td>
           <td class="fn-col {% if editable %}editable{% endif %}" id="firstname"> {{camper.firstname}} </td>
           <td class="ln-col {% if editable %}editable{% endif %}" id="lastname" > {{camper.lastname}} </td>
 					<td class="nk-col {% if editable %}editable{% endif %}" id="lastname" > {{camper.nickname}} </td>
-          <td class="lc-col {% if editable %}editable{% endif %}" id="location" > {{camper.location}} </td>
+          <td class="lc-col" id="location" > {{camper.location}} </td>
           <td class="nt-col {% if editable %}editable{% endif %}" id="note"     > {{camper.note}}</a> </td>
           <!--<a href="javascript:tableInput(notes, {{camper.id}}, this)">-->
         </tr>

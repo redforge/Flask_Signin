@@ -3,7 +3,7 @@
 {% import "tokenbox.html" as tokenbox %}
 
 {% block head %}
-	<title>P&C Sign In</title>
+	<title>P&C Sign In - View & Edit</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewdb.css') }}">
 	{{ chart.head() }}
 	<script async src="{{ url_for('static', filename='js/filter.js') }}"></script>
@@ -16,42 +16,53 @@
 {% block content %}
 	<div class="h-flex">
 		<div id="actionsBlock" class="content-block">
-			<h1> Basic Actions </h1>
+			<h1> Actions (Sign In or Out) </h1>
 
 			<div class="content-text">
 				<form id="actionsForm" onsubmit="console.log('aa');submitRequest();return false;">
+					Select an action:
 					<select id="action-select" onchange="changeActionMeta(this)">
-						<option value="sign-in"> Sign in to location </option>
+						<option value="sign-in"> Sign in / Change location </option>
 						<option value="sign-out">Sign out </option>
-						<option value="remove">  Remove from list </option>
+						<option value="remove">  Remove people from the list </option>
 						<option value="add">     Add new people to the list </option>
 					</select>
 					<span class="select-arrow"> </span>
 					<br>
 
-					<div id="signin-options">
+					<div id="sign-in-options">
 						<hr>
-						<span class="content-text"> Sign in to: </span>
-						<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other')">
-							{% for location in locations %}A
-								<option value="{{location.short}}"> {{location.long}} </option>
-							{% endfor %}
-							<option value="other"> Other... </option>
-						</select>
-						<span class="select-arrow"> </span>
-						<input type="text" class="hidden" id="signin-custom-location" placeholder="Custom Location">
+						<span class="content-text">
+							Current Location of Camper(s):
+							<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other')">
+								{% for location in locations %}A
+									<option value="{{location.short}}"> {{location.long}} </option>
+								{% endfor %}
+								<option value="other"> Other... </option>
+							</select>
+							<span class="select-arrow"> </span>
+							<input type="text" class="hidden" id="signin-custom-location" placeholder="Other Location (eg: Fells Trip)">
+							<div class="msg">
+								Select all campers being signed in to this location using the chart or box below.<br>
+							</div>
+						 </span>
 					</div>
 
-					<div id="remove-confirm">
+					<div id="sign-out-options">
 						<hr>
-						<label class="content-text"> Are you sure? <input type="checkbox" class="yes-im-sure"> </label>
+						<div class="msg content-text">Select all campers being signed out using the chart or box below.</div>
+					</div>
+
+					<div id="remove-options">
+						<hr>
+						<label class="content-text"> <strong>Are you sure you want to remove all selected campers from the sign in list? <br> This is different from signing out and there is no easy way to undo this.</strong> <br> <em>Yes, I'm really sure:</em> <input type="checkbox" class="yes-im-sure"> </label>
 					</div>
 
 					<div id="add-options">
 						<hr>
-						<span class="content-text"> Initial location </span>
+						<span class="content-text"> Initial location: <span class="msg">Applies to all campers being added</span></span>
 						<select id="add-location-select">
-							<option value="Not Yet Set"> Don't set yet </option>
+							<option value="Not Yet Set"> Don't set yet (Default)</option>
 							{% for location in locations %}
 							<option value="{{location.short}}"> {{location.long}} </option>
 							{% endfor %}
@@ -61,12 +72,12 @@
 						<form id="add-list-form">
 							<span id="add-list">
 							</span>
-							<span class="content-text shorten"> <small>Empty entries will be ignored</small>
+							<span class="content-text shorten"> <small>Entries with an empty first name will be ignored.</small>
 							<input type="submit" value="+1" id="add-plus" onclick="javascript:appendNewEntry();return false;"> </span>
 						</form>
 					</div>
 					<hr class="shorten">
-					<input type="submit" name="submit-change" class="submit" value="Submit Action" form="actionsForm">
+					<input type="submit" name="submit-change" class="submit" value="Submit this Action" form="actionsForm">
 				</form>
 				<span id="action-status" class="msg content-text">
 					<!--Left empty for js-->
@@ -75,9 +86,10 @@
 		</div>
 
 		{{ chart.visblock() }}
-	</div>
 
-	{{ tokenbox.fullblock(campers) }}
+		{{ tokenbox.fullblock(campers) }}
+
+	</div>
 
 	<div class="content-block" id="chart-block" >
 		{{ chart.fullbody(campers) }}

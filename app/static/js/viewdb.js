@@ -21,7 +21,6 @@ $(document).ready(function() {
 
   document.getElementById("action-select").value = "sign-in";
   changeAction("sign-in");
-  changeAction("sign-in"); //idk why this has to run twice, but its not exactly high priority to fix
 
   tokenbox = $("#tokeninput");
 });
@@ -40,20 +39,23 @@ function changeActionMeta(e) {
 //Called when the action (e.g. Sign out) is changed
 function changeAction(value) {
   //Hide everthing
-  setVisibilityBySelector("#signin-options", false);
-  setVisibilityBySelector("#remove-confirm", false);
+  setVisibilityBySelector("#sign-in-options" , false);
+  setVisibilityBySelector("#sign-out-options", false);
+  setVisibilityBySelector("#remove-options", false);
   setVisibilityBySelector("#add-options"   , false);
 
   //Unhide relevant things
   switch (value) {
     case "sign-in":
-      setVisibilityBySelector("#signin-options", true);
+      setVisibilityBySelector("#sign-in-options", true);
+      break;
 
     case "sign-out":
+      setVisibilityBySelector("#sign-out-options", true);
       break;
 
     case "remove":
-      setVisibilityBySelector("#remove-confirm", true);
+      setVisibilityBySelector("#remove-options", true);
       break;
 
     case "add":
