@@ -68,7 +68,7 @@ hr {
     box-shadow: none;
     border-radius: 0;
   }
-  #broken-arrow-fix::before {
+  .mobile-only-break::before {
     content: "\A";
     white-space: pre;
   }

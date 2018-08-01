@@ -21,7 +21,7 @@
 			<div class="content-text">
 				<form id="actionsForm" onsubmit="console.log('aa');submitRequest();return false;">
 					Select an action:
-					<span id=broken-arrow-fix></span>
+					<span class="mobile-only-break"></span>
 					<select id="action-select" onchange="changeActionMeta(this)">
 						<option value="sign-in"> Sign in / Change location </option>
 						<option value="sign-out">Sign out </option>
@@ -35,6 +35,7 @@
 						<hr>
 						<span class="content-text">
 							Current Location of Camper(s):
+							<span class="mobile-only-break"></span>
 							<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other'); setSubmitText('Sign in selected campers to '+$('#location-select').val());">
 								{% for location in locations %}A
 									<option value="{{location.short}}"> {{location.long}} </option>

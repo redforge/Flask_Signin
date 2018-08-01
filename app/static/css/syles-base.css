@@ -202,7 +202,7 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
   .select-arrow {
     padding-left: 4px;
     margin-left: -23px;
-    margin-bottom: -16px;
+    margin-bottom: -16.5px;
     height: 44px;
   }
   #top-userinfo:not(a){
