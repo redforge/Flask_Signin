@@ -18,8 +18,8 @@
 #bg {
   /*This fix is for chrome, which doesn't play nice with css variables. Actually set by js*/
   background: var(--accent-color-light);
-  height: 100%;
-  width: 100%;
+  height: 105vh;
+  width: 100vw;
   display: block;
   position: fixed;
   z-index: -1;
