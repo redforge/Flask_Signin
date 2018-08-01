@@ -116,53 +116,31 @@ tbody tr.odd-row {
   background-color: #00000012;
   list-style-type: disc;
 }
-@media not screen and (max-width: 600px) {
 
-  /*Highlight stuff*/
-  tr {
-    transition-duration: 0.1s;
-  }
-
-  tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
-    /*all highlights*/
-    background-color: var(--focus-color-light);
-  }
-  tr:not(.highlight) ~ .highlight.odd-row, thead + tbody tr.highlight.odd-row{
-    /*all highlights, odd*/
-    background-color: var(--focus-color);
-  }
-
-  tr:not(.highlight) + .highlight {
-    /*first highlight*/
-    box-shadow: 0px -3px 2px -1px #80808080;
-  }
-
-  .highlight + tr:not(.highlight) {
-    /*first item AFTER highlights*/
-    box-shadow: inset 0px 6.5px 4px -4px grey;
-  }
-  /*End highlight stuff*/
+/*Highlight stuff*/
+tr {
+  transition-duration: 0.1s;
 }
-@media only screen and (max-width: 600px) {
 
-  tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
-    /*all highlights expect first*/
-    /*shadows order:  fill*/
-    box-shadow: inset 0 100vh 0 0 var(--focus-color);
-  }
-
-  tr:not(.highlight) + .highlight {
-    /*first highlight*/
-    /*shadows order: top,  fill*/
-    box-shadow: 0px -3px 2px -1px #80808080, inset 0 100vh 0 0 var(--focus-color);
-  }
-
-  .highlight + tr:not(.highlight) {
-    /*first item AFTER highlights*/
-    box-shadow: inset 0px 6px 4px -4px grey;
-  }
-  /*End highlight stuff*/
+tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
+  /*all highlights*/
+  background-color: var(--focus-color-light);
 }
+tr:not(.highlight) ~ .highlight.odd-row, thead + tbody tr.highlight.odd-row{
+  /*all highlights, odd*/
+  background-color: var(--focus-color);
+}
+
+tr:not(.highlight) + .highlight {
+  /*first highlight*/
+  box-shadow: 0px -3px 2px -1px #80808080;
+}
+
+.highlight + tr:not(.highlight) {
+  /*first item AFTER highlights*/
+  box-shadow: inset 0px 6.5px 4px -4px grey;
+}
+/*End highlight stuff*/
 
 @media only screen and (max-width: 800px) {
   .check, .all-check css-label {
