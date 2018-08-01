@@ -17,8 +17,6 @@ var tokenbox = null;
 $(document).ready(function() {
 
   //Run once page loads
-  setNote("edit-save-message", "No manual changes yet...");
-
   document.getElementById("action-select").value = "sign-in";
   changeAction("sign-in");
 

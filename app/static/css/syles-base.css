@@ -61,6 +61,20 @@ select:hover, select:focus {
   background: url("../img/dropdown-arrow.svg") 50% no-repeat;
   background-color: var(--accent-color);
 }
+@media not screen and (max-width: 600px) {
+  .mobile-only {
+    display: none;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .non-mobile-only {
+    display: none;
+  }
+}
+
+.lh {
+  display: inline-block;
+}
 
 .content-block {
   background-color: var(--contrast-text-color);

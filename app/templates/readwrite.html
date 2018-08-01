@@ -21,7 +21,7 @@
 			<div class="content-text">
 				<form id="actionsForm" onsubmit="console.log('aa');submitRequest();return false;">
 					Select an action:
-					<span class="mobile-only-break"></span>
+					<span class="mobile-only"><br></span>
 					<select id="action-select" onchange="changeActionMeta(this)">
 						<option value="sign-in"> Sign in / Change location </option>
 						<option value="sign-out">Sign out </option>
@@ -35,7 +35,7 @@
 						<hr>
 						<span class="content-text">
 							Current Location of Camper(s):
-							<span class="mobile-only-break"></span>
+							<span class="mobile-only"><br></span>
 							<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other'); setSubmitText('Sign in selected campers to '+$('#location-select').val());">
 								{% for location in locations %}A
 									<option value="{{location.short}}"> {{location.long}} </option>
@@ -77,8 +77,8 @@
 							<span class="content-text shorten"> <small>Pressing enter will also add an entry</small>
 							<input type="submit" value="Add Entry" id="add-plus" onclick="javascript:appendNewEntry();return false;"> </span>
 							<div style="clear:both;" class="msg">
-								<span style="display: inline-block"> Entries with an empty first name will be ignored.</span>
-								<span style="display: inline-block"> Separate multiple names, if applicable, with spaces. </span>
+								<span class="lh"> Entries with an empty first name will be ignored.</span>
+								<span class="lh"> Separate multiple names, if applicable, with spaces. </span>
 								</div>
 						</form>
 					</div>

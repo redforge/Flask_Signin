@@ -68,10 +68,6 @@ hr {
     box-shadow: none;
     border-radius: 0;
   }
-  .mobile-only-break::before {
-    content: "\A";
-    white-space: pre;
-  }
   .c-inner {
     padding: 20px;
   }

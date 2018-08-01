@@ -210,10 +210,12 @@ $.TokenList = function (input, url_or_data, settings) {
             var next_token;
 
             switch(event.keyCode) {
+                //EDIT
+                case KEY.DOWN:
+                case KEY.UP:
+                  break;
                 case KEY.LEFT:
                 case KEY.RIGHT:
-                case KEY.UP:
-                case KEY.DOWN:
                     if(!$(this).val()) {
                         previous_token = input_token.prev();
                         next_token = input_token.next();

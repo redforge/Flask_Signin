@@ -24,12 +24,19 @@ $(document).keydown(function(e) {
   if ($(document.activeElement)[0].tagName.toLowerCase() == "input") {
     switch(e.which) {
       case 38: // up
-        $(adjacentElem(-1)).focus();
+        if (document.activeElement.id == "filterbox")
+          $(adjacentElem(-2)).focus();
+        else
+          $(adjacentElem(-1)).focus();
         e.preventDefault();
         break;
 
+
       case 40: // down
-        $(adjacentElem(1)).focus();
+        if (!document.activeElement.id.includes("token-input"))
+          $(adjacentElem(1)).focus();
+        else
+          $(adjacentElem(2)).focus();
         e.preventDefault();
         break;
 
