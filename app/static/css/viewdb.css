@@ -10,6 +10,18 @@
   min-width: 245px;
 }
 
+#action-status {
+  float: left;
+}
+
+#submit-action {
+  width: 100%;
+  float: center;
+}
+.h-flex {
+  margin-bottom: -1px;
+  padding: 0;
+}
 @media not screen and (max-width: 600px) {
   .h-flex {
     display: flex;

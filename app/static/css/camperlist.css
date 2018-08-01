@@ -124,15 +124,17 @@ tbody tr.odd-row {
   }
 
   tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
-    /*all highlights expect first*/
-    /*shadows order: left, right, fill*/
-    box-shadow: -3px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100vh 0 0 var(--focus-color);
+    /*all highlights*/
+    background-color: var(--focus-color-light);
+  }
+  tr:not(.highlight) ~ .highlight.odd-row, thead + tbody tr.highlight.odd-row{
+    /*all highlights, odd*/
+    background-color: var(--focus-color);
   }
 
   tr:not(.highlight) + .highlight {
     /*first highlight*/
-    /*shadows order: top, left, right, fill*/
-    box-shadow: 0px -3px 2px -1px #80808080, -3px 0px 2px -2px grey, 3px 0px 2px -2px grey, inset 0 100vh 0 0 var(--focus-color);
+    box-shadow: 0px -3px 2px -1px #80808080;
   }
 
   .highlight + tr:not(.highlight) {
@@ -173,18 +175,6 @@ tbody tr.odd-row {
   @media not screen and (max-width: 600px) {
     td, th {
       border-right-width: 0;
-    }
-  }
-}
-
-/* Safari only hack, these box shadows dont work in safari for some reason */
-@media not all and (min-resolution:.001dpcm) { @media {
-  .highlight, .highlight.odd-row {
-    background-color: var(--focus-color);
-  }
-  @media not screen and (max-width: 600px) {
-    td, th {
-      border-right-width: 1px;
     }
   }
 }

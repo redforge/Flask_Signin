@@ -105,7 +105,6 @@ li.token-input-input-token input:hover {
 
 }
 li.token-input-input-token input:focus {
-  border-left: 1px solid var(--accent-color);
   padding: 12px;
 }
 
@@ -129,17 +128,6 @@ div.token-input-dropdown {
   z-index: 20;
 }
 
-@media only screen and (max-width: 100px) {
-  div.token-input-dropdown {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    width:, "95%";
-    max-width: 100%;
-    max-height: 50vh;
-    overflow: scroll;
-  }
-}
 div.token-input-dropdown p {
   font-size: 10pt;
   margin: 0;
@@ -204,4 +192,16 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item.odd {
 div.token-input-dropdown ul li.token-input-selected-dropdown-item span.token-input-dropdown-item-description,
 div.token-input-dropdown ul li.token-input-selected-dropdown-item.odd span.token-input-dropdown-item-description {
   color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  div.token-input-dropdown {
+    position:static;
+    bottom: 10px;
+    left: 10px;
+    width: 95%;
+    max-width: 100%;
+    max-height: 50vh;
+    overflow: scroll;
+  }
 }

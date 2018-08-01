@@ -10,7 +10,6 @@ function setVisibilityByObject(object, visible) {
 }
 
 $(document).ready(function() {
-
   //Set title in-window, seems to not work w jQuery
   document.getElementById("top-title").innerHTML = document.getElementsByTagName("title")[0].innerHTML;
   //Style checkboxes
@@ -37,6 +36,14 @@ $(document).keydown(function(e) {
       default: return;
     }
   } //else if (e.which == 8) e.preventDefault();
+});
+
+//Dynamic scroll sytle!
+$(window).scroll(function(){
+    if ($(window).scrollTop() > 1)
+      $("#top-bar").addClass("scrolled");
+    else
+      $("#top-bar").removeClass("scrolled");
 });
 
 //Called when the server responds to a request

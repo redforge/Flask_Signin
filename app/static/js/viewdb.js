@@ -31,6 +31,10 @@ function addRemoveToken(item, isAdd) {
   normalCheck (cbTemp, changeVal=true, newVal=isAdd, editSelect=false);
 }
 
+function setSubmitText(str) {
+  $("#submit-action").attr("value",str);
+}
+
 //Fuction called by the page, casts the value and sends it to the fuction below
 function changeActionMeta(e) {
   changeAction(""+e.value);
@@ -48,20 +52,24 @@ function changeAction(value) {
   switch (value) {
     case "sign-in":
       setVisibilityBySelector("#sign-in-options", true);
+      setSubmitText("Sign in selected campers to "+$("#location-select").val());
       break;
 
     case "sign-out":
       setVisibilityBySelector("#sign-out-options", true);
+      setSubmitText("Sign out selected campers");
       break;
 
     case "remove":
       setVisibilityBySelector("#remove-options", true);
+      setSubmitText("Remove selected campers and their data from the database");
       break;
 
     case "add":
       setVisibilityBySelector("#add-options"   , true);
       document.getElementById("add-list").innerHTML = "";
       appendNewEntry();
+      setSubmitText("Add the campers entered above to the database");
       break;
 
     default:

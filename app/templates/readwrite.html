@@ -35,14 +35,14 @@
 						<hr>
 						<span class="content-text">
 							Current Location of Camper(s):
-							<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other')">
+							<select id="location-select" onchange="setVisibilityBySelector('#signin-custom-location', this.value == 'other'); setSubmitText('Sign in selected campers to '+$('#location-select').val());">
 								{% for location in locations %}A
 									<option value="{{location.short}}"> {{location.long}} </option>
 								{% endfor %}
 								<option value="other"> Other... </option>
 							</select>
 							<span class="select-arrow"> </span>
-							<input type="text" class="hidden" id="signin-custom-location" placeholder="Other Location (eg: Fells Trip)">
+							<input type="text" class="hidden" id="signin-custom-location" onchange="setSubmitText('Sign in selected campers to '+$(this).val());" placeholder="Other Location (eg: Fells Trip)">
 							<div class="msg">
 								Select all campers being signed in to this location using the chart or box below.<br>
 							</div>
@@ -82,7 +82,7 @@
 						</form>
 					</div>
 					<hr class="shorten">
-					<input type="submit" name="submit-change" class="submit" value="Submit this Action" form="actionsForm">
+					<input type="submit" name="submit-change" id="submit-action" class="submit" value="Submit" form="actionsForm">
 				</form>
 				<span id="action-status" class="msg content-text">
 					<!--Left empty for js-->

@@ -13,8 +13,10 @@
 			function sc(c) {
 				$(":root").css("--accent-color", "hsl("+c+")");
 				$(":root").css("--focus-color", "hsla("+c+", 0.6)");
-				acDark = "hsl("+( parseInt(c.split(',')[0])+30) +", "+c.split(',')[1]+", 25%)"
-				acLight= "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 40%)"
+				fcLight = "hsla("+( parseInt(c.split(',')[0])) +", "+c.split(',')[1]+", 45%, 0.5)";
+				$(":root").css("--focus-color-light", fcLight);
+				acDark = "hsl("+( parseInt(c.split(',')[0])+30) +", "+c.split(',')[1]+", 25%)";
+				acLight= "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 40%)";
 				$(":root").css("--accent-color-dark" , acDark);
 				$(":root").css("--accent-color-light", acLight);
 				$("#bg").css("background", "linear-gradient(to bottom left,"+acLight+","+acDark+")");

@@ -24,14 +24,19 @@ function hideBox() {
 function relocateBox() {
   if (window.innerWidth > 600) {
     relocateBoxNonMobile();
+  } else {
+    //This is redundant, but necessary for some reason. Not a high priority "bug"
+    var dd = $("div.token-input-dropdown")[0];
+    $(dd).css("bottom", "10px");
   }
 }
+
 function relocateBoxNonMobile() {
   var ae = document.activeElement;
   var xy = getCursorXY(document.activeElement);
   var outerBox = $(ae).parent().parent();
   //console.log(xy.x + ":" + xy.y);
-  var dd = $("div.token-input-dropdown")[0]
+  var dd = $("div.token-input-dropdown")[0];
   $(dd).css("transition-duration","0.1s");
 
   boxWidth  = $(dd).width();
