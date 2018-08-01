@@ -97,13 +97,6 @@ li.token-input-input-token input {
   background: transparent;
 }
 
-
-
-li.token-input-input-token input:hover {
-  border: 1px solid var(--focus-color);
-  padding: 12px;
-
-}
 li.token-input-input-token input:focus {
   padding: 12px;
 }

@@ -1,6 +1,6 @@
 var DBLCLICK_TIMER = 250;
 var currentEditableField = null;
-
+var prevText = "";
 //Most of this is to prevent counting doubleclick
 var clickCountDc = 0;
 var timerDc, prevElemDc, functionDc;
@@ -24,9 +24,10 @@ $(document).ready(function() {
   $(".editable").bind("dblclick",
     function(){
       currentEditableField = this;
+      prevText = this.innerHTML;
       $(this).attr("contentEditable",true);
       $(this).focus();
-
+      document.execCommand('selectAll',false,null);
       setNote("edit-save-message", "Click outside of the text box to save.");
     }).blur(
       function() {
@@ -37,7 +38,8 @@ $(document).ready(function() {
         idToSet = $(this).parent().prop("id");
         //console.log (fieldToSet+" "+newValue+" "+idToSet)
         shouldReload = false;
-        sendRequest(fieldToSet, newValue, idToSet);
+        if (this.innerHTML != prevText)
+          sendRequest(fieldToSet, newValue, idToSet);
 
         setNote("edit-save-message", "Change saved.");
       }
