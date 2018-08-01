@@ -32,7 +32,7 @@
 				<span id="top-title"> ... </span>
 				<span id="top-userinfo">
 					{% if loggedin %}
-						Logged in as <a href="/userinfo"> <b>{{ user.username }}</b> </a>
+						Logged in as <a href="/userinfo"> <b>{{ user.username|title }}</b> </a>
 						<input type="submit" id="signout-button" value="Sign Out" onclick="logOutRequest();">
 					{% else %}
 						Not logged in

@@ -9,7 +9,7 @@ from app.data.user_roles import has_permission
 
 @app.route('/login/login', methods = ['POST'])
 def login_user_page():
-    username = request.values.get('username')
+    username = request.values.get('username').lower()
     password = request.values.get('password')
     #print("name: {}  pass: {}".format(username, password))
     try:
@@ -30,7 +30,7 @@ def signup_user():
     user_role = get_role_by_code (rolecode)
 
     if (user_role[0]): #check if its a valid code
-        username = request.values.get('username')
+        username = request.values.get('username').lower()
         password = request.values.get('password')
         password_hash = flask_bcrypt.generate_password_hash(password)
 
