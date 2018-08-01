@@ -27,7 +27,7 @@ function relocateBox() {
   } else {
     //This is redundant, but necessary for some reason. Not a high priority "bug"
     var dd = $("div.token-input-dropdown")[0];
-    $(dd).css("bottom", "10px");
+    $(dd).css("position", "fixed");
   }
 }
 
