@@ -213,7 +213,6 @@ $.TokenList = function (input, url_or_data, settings) {
                 //EDIT
                 case KEY.DOWN:
                 case KEY.UP:
-                  break;
                 case KEY.LEFT:
                 case KEY.RIGHT:
                     if(!$(this).val()) {
