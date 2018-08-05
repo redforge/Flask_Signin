@@ -9,6 +9,12 @@ function setVisibilityByObject(object, visible) {
   else $(object).addClass("hidden");
 }
 
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
 $(document).ready(function() {
   //Set title in-window, seems to not work w jQuery
   document.getElementById("top-title").innerHTML = document.getElementsByTagName("title")[0].innerHTML;
@@ -74,24 +80,29 @@ function adjacentElem(offset) {
   //Iterate until a sibling is or contains an input
   for (var i=0; i<ADJACENT_ELEM_MAX_LAYERS; i++) {
     //Check if this element contains it
-    currentChildrenElements = $(currentContainerElement).find("input, .selectable").toArray();
-
+    currentChildrenElements = $(currentContainerElement).find("input").toArray();
     //omit hidden items
-    for (var j=0; j<currentChildrenElements.length; j++)
-      if ($(currentChildrenElements[j]).parents().hasClass("hidden"))
-        currentChildrenElements.splice(j, 1);
+    for (var n=0; n<currentChildrenElements.length; n++) {
+      if ($(currentChildrenElements[n]).hasClass("hidden") || $(currentChildrenElements[n]).parents(".hidden").length != 0) {
+        currentChildrenElements.splice(n,1);
+        n--;
+      }
+    }
 
     if (currentChildrenElements.length != 0) {
       originalElementIndex = Object.values(currentChildrenElements).indexOf( Object.values(originalElement)[0] );
 
       if (originalElementIndex == -1)
         return currentChildrenElements[0];
-      else if (originalElementIndex+offset < currentChildrenElements.length && originalElementIndex+offset >= 0)
+      else if (originalElementIndex+offset < currentChildrenElements.length && originalElementIndex+offset >= 0){
+        console.log("Found:");
+        console.log(currentChildrenElements[originalElementIndex+offset]);
         return currentChildrenElements[originalElementIndex+offset];
-
+}
     }
     //If nothing's found, go out a level
     currentContainerElement = $(currentContainerElement).parent();
   }
+  console.log('couldnt find');
   return("fail");
 }

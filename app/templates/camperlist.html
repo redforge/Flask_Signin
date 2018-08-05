@@ -6,11 +6,6 @@
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-
-
-	<script>
-
-	</script>
 {% endmacro %}
 
 {% macro visblock() %}
@@ -33,7 +28,7 @@
   </div>
 {% endmacro %}
 
-{% macro fullbody(campers, editable=true) -%}
+{% macro fullbody(campers, editable, locations) -%}
     <div class="clear c-inner">
       <h1> All Camper Info </h1>
 
@@ -45,9 +40,25 @@
 				<div id="edit-save-message" style="margin: 0;" class="msg">
           <br><!-- intentionally empty for js -->
         </div>
+				<div id="location-counts">
+					{% for location in locations %}
+						<label class="bold location-count" id="{{location.short}}"> <span class="hidden loc-vis-span"><input type="checkbox" checked onchange="locVis(this);" name="{{location.long}}"></span> {{location.short}}: <span class="count">#</span>
+							<svg viewbox="0 0 100 100" style="height:12px; margin-left:-5px;">
+							  <circle cx="50" cy="25" r="23"/>
+							  <path d="M10 100 C 0 45, 100 45, 90 100"/>
+							</svg>
+						</label>
+					{% endfor %}
+					<label class="bold location-count" id="Signed Out"> <span class="hidden loc-vis-span"><input type="checkbox" checked onchange="locVis(this);" name="Signed Out"></span> Out: <span class="count">#</span>
+						<svg viewbox="0 0 100 100" style="height:12px; margin-left:-5px;">
+							<circle cx="50" cy="25" r="23"/>
+							<path d="M10 100 C 0 45, 100 45, 90 100"/>
+						</svg>
+					</label>
+				</div>
 				{% endif %}
+				<span style="display: block; text-align: right; width: 100%; margin-top: -30px;"><input type="text" id="filterbox" placeholder="Search &amp; Filter" onkeyup="filter(this.value, 'ordered')"></span>
       </div>
-			<input type="text" id="filterbox" placeholder="Search &amp; Filter" onkeyup="filter(this.value, 'ordered')">
     </div>
 		<br>
 

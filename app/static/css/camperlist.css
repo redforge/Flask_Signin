@@ -12,16 +12,32 @@
 }
 
 #filterbox {
-  float: right;
-  margin-right: 0;
-  margin-top: -40px;
-  margin-bottom: 10px;
+  display: inline-block;
+  //text-align: right;
 }
+#location-counts {
+  display: inline-block;
+}
+.location-count {
+  font-weight: bold;
+  color: var(--dim-text-color);
+  fill: var(--dim-text-color);
+  padding-right: 10px;
+}
+
+.bold svg {
+  fill: var(--accent-color);
+}
+.bold {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
 
 #above-chart {
   min-width: 600px;
-  float:left;
-  max-width: calc(100% - 275px);
+  width: 100%;
+  margin-bottom: -8px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -122,21 +138,21 @@ tr {
   transition-duration: 0.1s;
 }
 
-tr:not(.highlight) ~ .highlight, thead + tbody tr.highlight{
+tr:not(.highlight):not(.hidden) ~ .highlight, thead + tbody tr.highlight:not(.hidden){
   /*all highlights*/
   background-color: var(--focus-color-light);
 }
-tr:not(.highlight) ~ .highlight.odd-row, thead + tbody tr.highlight.odd-row{
+tr:not(.highlight):not(.hidden) ~ .highlight.odd-row:not(.hidden), thead + tbody tr.highlight.odd-row:not(.hidden){
   /*all highlights, odd*/
   background-color: var(--focus-color);
 }
 
-tr:not(.highlight) + .highlight {
+tr:not(.highlight):not(.hidden) + .highlight:not(.hidden) {
   /*first highlight*/
   box-shadow: 0px -3px 2px -1px #80808080;
 }
 
-.highlight + tr:not(.highlight) {
+.highlight + tr:not(.highlight):not(.hidden) {
   /*first item AFTER highlights*/
   box-shadow: inset 0px 6.5px 4px -4px grey;
 }

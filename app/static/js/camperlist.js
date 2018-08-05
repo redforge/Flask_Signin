@@ -44,6 +44,7 @@ $(document).ready(function() {
         setNote("edit-save-message", "Change saved.");
       }
   );
+  getLocationCounts();
   refindColumns();
 
   //Big chunk of code that just selects stuff on a single, but not double, click
@@ -132,6 +133,35 @@ function colVis(s,c) {
     if (!$(eAll[i]).hasClass("hidden")) eVis.push(eAll[i]);
   }
   $(eVis[eVis.length-1]).addClass("last-col");
+}
+
+function locVis(elem) {
+  var label = $(elem).parent().parent();
+getLocationCounts();
+  if (elem.checked) {
+    $(label).addClass("bold");
+  } else {
+    $(label).removeClass("bold");
+  }
+  $("td.lc-col").each(function() {
+    if (this.innerHTML.includes($(label).prop("id")))
+      setVisibilityByObject ($(this).parent(), elem.checked);
+  });
+  refindOdds();
+}
+
+function getLocationCounts() {
+  $("#location-counts").children().each(function() {
+    //Count each row
+    count = 0;
+    parID = $(this).prop("id");
+
+    $("td.lc-col").each(function() {
+      if (this.innerHTML.includes(parID)) count++;
+    });
+    //Display value
+    $(this).find(".count").html(count);
+  });
 }
 
 function refindOdds() {
