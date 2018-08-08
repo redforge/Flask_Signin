@@ -19,4 +19,4 @@ Although much of the frontend is purpose built, most of the backend is modular a
   * [Flask](http://flask.pocoo.org/)
   * [Flask-Login](https://flask-login.readthedocs.io/en/latest/)
   * [Flask-Bcrypt](http://flask-bcrypt.readthedocs.io/en/latest/)
-  * [Flask-Sqlalchemy](http://flask-sqlalchemy.pocoo.org/2.3/) for [Splalchemy](http://www.sqlalchemy.org/)
+  * [Flask-Sqlalchemy](http://flask-sqlalchemy.pocoo.org/2.3/) for [Sqlalchemy](http://www.sqlalchemy.org/)
