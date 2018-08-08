@@ -6,8 +6,8 @@ Although much of the frontend is purpose built, most of the backend is modular a
 ## Build to:
   * Be lightweight on the server CPU
   * Be lightweight on the client CPU and iGPU
-  * Allow quick batch actions
-  * Accomidate for typos
+  * Allow quick & easy batch or individual actions
+  * Accomodate for typos
 
 ## Libraries Used
 ### JavaScript
