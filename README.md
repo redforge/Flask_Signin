@@ -1,5 +1,7 @@
 # Parts and Crafts Sign In
-A purpose-built sign in system for [Parts and Crafts](https://www.partsandcrafts.org/) summer camp.
+#### A purpose-built sign in system for [Parts and Crafts](https://www.partsandcrafts.org/) summer camp.
+
+Although much of the frontend is purpose built, most of the backend is modular and flexible, and is welcome to be used as a starting point for others' projects.
 
 ## Build to:
   * Be lightweight on the server CPU
