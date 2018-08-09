@@ -7,6 +7,7 @@ id_verify_length = 1
 #List of things to use for the verification bit
 id_verify_list = string.ascii_uppercase
 
+db_directory = 'data/days/'
 
 #DON'T CHANGE
 id_length = id_number_length + id_verify_length

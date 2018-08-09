@@ -114,7 +114,6 @@ function submitRequest() {
       break;
 
     case "add":
-      shouldReload=true;
       addNewCampers();
       return false;
 

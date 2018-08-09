@@ -5,23 +5,22 @@
 {% endblock %}
 
 {% block content %}
-  <h1> This website makes use of the following open source software: </h1>
+  <div class="content-block"><h1> This website makes use of the following open source software: </h1>
 
-  <h2> jQuery </h2>
-  {{ mit("2009 JS Foundation and other contributors, https://js.foundation/")}}
 
-  <h2> jQuery Token Input </h2>
-  {{ mit("2009 James Smith")}}
+  {{ mit("jQuery","2009 JS Foundation and other contributors, https://js.foundation/")}}
 
-  <h2> InstaScan </h2>
-  {{ mit("2016 Chris Schmich")}}
+  {{ mit("jQuery Token Input", "2009 James Smith")}}
 
-  <h2> Fuse.js </h2>
-  {{ apache("2016 Kiro Risk")}}
+  {{ mit("InstaScan", "2016 Chris Schmich")}}
 
+  {{ apache("Fuse.js","2016 Kiro Risk")}}
+  </div>
 {%endblock %}
 
-{% macro mit(yearname) -%}
+{% macro mit(softname, yearname) -%}
+  <div class="content-block">
+  <h2> {{softname}} </h2>
   MIT License
 
   Copyright (c) {{yearname}} </br></br>
@@ -43,9 +42,12 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.</br></br>
+  </div>
 {% endmacro %}
 
-{% macro apache(yearname) -%}
+{% macro apache(softname, yearname) -%}
+  <div class="content-block">
+  <h2> {{softname}} </h2>
   APACHE License
 
   Copyright (c) {{yearname}} </br></br>
@@ -61,4 +63,5 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.</br></br>
+  </div>
 {% endmacro %}

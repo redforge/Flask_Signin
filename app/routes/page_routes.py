@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, redirect
 from app import app
 from sqlalchemy import Column, Integer, String
 from app.data.database import Base, db_session
@@ -15,36 +15,87 @@ from app.data.user_roles import has_permission
 def shutdown_session(exception=None):
 	db_session.remove()
 
+@app.route('/test')
+def test():
+	check_db()
+	return 'load'
+
 
 @app.route('/readwrite')
 @login_required
 def readwrite():
 	#check if user has proper permissions
-	if (has_permission(current_user.role, 'write')):
-		#If no database is found, make one
-		check_db();
-
-		#grab camper data
-		camper_data = db_session.query(Camper)
-
-		return render_template('readwrite.html', campers=camper_data, locations=get_locations())
-	else:
+	if (not has_permission(current_user.role, 'write')):
 		return render_template('denied.html')
+
+	check_db()
+	#grab camper data
+	camper_data = db_session.query(Camper)
+
+	return render_template('readwrite.html', campers=camper_data, locations=get_locations())
 
 @app.route('/readonly')
 @login_required
 def readonly():
 	#check if user has proper permissions
-	if (has_permission(current_user.role, 'read')):
-		#If no database is found, make one
-		check_db();
-
-		#grab camper data
-		camper_data = db_session.query(Camper)
-
-		return render_template('readonly.html', campers=camper_data, locations=get_locations())
-	else:
+	if (not has_permission(current_user.role, 'read')):
 		return render_template('denied.html')
+
+	check_db()
+	#grab camper data
+	camper_data = db_session.query(Camper)
+
+	return render_template('readonly.html', campers=camper_data, locations=get_locations())
+
+
+from app.data.database import db_directory
+@app.route('/history/list')
+def history_list():
+	global db_directory
+	check_db()
+	from os import listdir, path
+	history_list = listdir(db_directory)
+	history_list.sort(key=get_creation)
+	history_list_cut = []
+	for li in history_list:
+		li_cut = li;
+		if li_cut.endswith('.sql'):
+			li_cut = li_cut[:-4]
+		history_list_cut.append({ 'filename':li, 'displayname':li_cut })
+	return render_template('historylist.html', files=history_list_cut)
+
+def get_creation(path):
+	global db_directory
+	return os.path.getmtime(db_directory + path);
+
+@app.route('/history')
+@login_required
+def history_page():
+	if (not has_permission(current_user.role, 'readhistory')):
+		return render_template('denied.html')
+
+	# Check that the file exists
+	import os.path
+	from app.configs.constants import db_directory
+	filename = request.args.get('file')
+
+	if (filename == None):
+		return redirect('/history/list')
+	elif (not os.path.isfile(db_directory + filename)):
+		print('Attempt to access nonexistant file \"{}\"'.format(db_directory + filename))
+		return redirect('/history/list')
+
+
+	from app.data.database_history_viewer import HistoryViewer
+	hv = HistoryViewer(filename)
+
+	camper_data = hv.get_session().query(Camper)
+
+	titlename = filename
+	if titlename.endswith('.sql'):
+		titlename = titlename[:-4]
+
+	return render_template('historypage.html', titlename=titlename,campers=camper_data, locations=get_locations())
 
 
 @app.route('/licenses')

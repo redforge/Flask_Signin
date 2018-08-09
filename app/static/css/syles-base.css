@@ -10,6 +10,7 @@
   --focus-color: hsl(0, 0%, 50%);
   --focus-color-light: hsl(0, 0%, 40%);
   --shadow: 0 2px 15px 0 #11111155;
+  --background-gradient: linear-gradient(#CCC, #777);
 
   font-family: sans-serif;
   color: var(--main-text-color);
@@ -17,7 +18,7 @@
 
 #bg {
   /*This fix is for chrome, which doesn't play nice with css variables. Actually set by js*/
-  background: var(--accent-color-light);
+  background: var(--background-gradient);
   height: 105vh;
   width: 100vw;
   display: block;
@@ -141,6 +142,26 @@ select:hover, select:focus {
   text-decoration: underline;
 }
 
+#footer {
+  text-align: center;
+  padding-bottom: 8px;
+}
+#footer a {
+  display: inline-block;
+  color: #FFF9;
+  text-decoration: none;
+  padding: 0 10px;
+  padding-top: 2px;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer a:not(:last-child) {
+
+  border-right: 1px solid #FFF6;
+
+}
+
 h1 {
     margin-top: 5px;
 }
@@ -193,6 +214,9 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
 }
 
 @media only screen and (max-width: 600px) {
+  #footer {
+    padding: 10px 0;
+  }
   input[type~="text"], input[type~="password"] {
     padding: 20px;
     width: 79%;

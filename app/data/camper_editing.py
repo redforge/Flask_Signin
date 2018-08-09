@@ -20,16 +20,22 @@ def add_camper(firstname, lastname, nickname='', location='unset', note='', comm
 	c = Camper(id=encode_id(index), firstname=firstname, lastname=lastname, nickname=nickname, location=location, note=note)
 	db_session.add(c)
 	if (commit):
-		db_session.commit()
+	  	db_session.commit()
 
 def get_locations():
 	return location_list
 
 def backup_database():
 	from shutil import copy2
-	from app.data.database import db_path
+	from app.data.database import db_path, db_directory
 	from app.data.get_time import get_timedate
 
 	newname = get_timedate()
-	copy2('.'+db_path, './data/'+newname)
+	copy2('.'+db_path, '.'+db_directory+newname)
+	reset_locs()
 	return newname
+
+def reset_locs():
+	for c in db_session.query(Camper):
+		c.location = 'Not Signed In'
+	db_session.commit()
