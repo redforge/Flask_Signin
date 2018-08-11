@@ -3,7 +3,7 @@
 
 Although much of the frontend is purpose built, most of the backend is modular and flexible, and is welcome to be used as a starting point for others' projects.
 
-## Build to:
+## Built to:
   * Be lightweight on the server CPU
   * Be lightweight on the client CPU and iGPU
   * Allow quick & easy batch or individual actions
