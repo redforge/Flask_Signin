@@ -7,11 +7,17 @@ import os.path
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-#sslify = SSLify(app)
 app.config.from_object(Config)
+
+print('\n Log Start \n');
 
 login_manager = LoginManager(app)
 flask_bcrypt = Bcrypt(app)
+
+#log only errors and print statements, not every request
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 if not os.path.isfile('./data/logins.db'):
     print ('No login database, making one...')

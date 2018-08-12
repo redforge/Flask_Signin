@@ -87,8 +87,11 @@ def backup_db_route():
 	else:
 		return render_template('denied.html')
 
-
-def reset_locs():
-	for c in db_session.query(Camper):
-		c.location = 'Not Signed In'
-	db_session.commit()
+@app.route('/api/curname')
+@login_required
+def curname_route():
+	if (has_permission(current_user.role, 'administrate')):
+		from app.data.database import db_path
+		return db_path
+	else:
+		return render_template('denied.html')

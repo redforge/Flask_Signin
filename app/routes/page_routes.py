@@ -15,15 +15,18 @@ from app.data.user_roles import has_permission
 def shutdown_session(exception=None):
 	db_session.remove()
 
+@app.route('/test')
+def test():
+	check_db()
+	return 'load'
+
 
 @app.route('/readwrite')
 @login_required
 def readwrite():
 	#check if user has proper permissions
 	if (has_permission(current_user.role, 'write')):
-		#If no database is found, make one
-		check_db();
-
+		check_db()
 		#grab camper data
 		camper_data = db_session.query(Camper)
 
@@ -36,7 +39,6 @@ def readwrite():
 def readonly():
 	#check if user has proper permissions
 	if (has_permission(current_user.role, 'read')):
-		#If no database is found, make one
 		check_db();
 
 		#grab camper data

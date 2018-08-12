@@ -33,17 +33,9 @@ def read_role_permissions():
             i += 1
             elements = line.split(':')
             out[elements[0]]=elements[1:]
-    print(out)
+    # print(out)
     return out
 
 def has_permission(role, permission):
     permissions = read_role_permissions()
     return permission in permissions[role]
-
-    # for role in roles:
-    #     if roles[]
-    #
-    # return permissions in roles['role names']#['role permissions']
-    #     if permission in permissions return true
-
-# print (get_permission_by_code('pass'))

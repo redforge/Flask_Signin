@@ -49,12 +49,14 @@
 							</svg>
 						</label>
 					{% endfor %}
-					<label class="bold location-count" id="Signed Out"> <span class="hidden loc-vis-span"><input type="checkbox" checked onchange="locVis(this);" name="Signed Out"></span> Out: <span class="count">#</span>
-						<svg viewbox="0 0 100 100" style="height:12px; margin-left:-5px;">
-							<circle cx="50" cy="25" r="23"/>
-							<path d="M10 100 C 0 45, 100 45, 90 100"/>
-						</svg>
-					</label>
+					{% for location in [{"short":"Out", "long":"Signed Out"}, {"short":"Other", "long":"Other"}] %}
+						<label class="bold location-count" id="{{location.short}}"> <span class="hidden loc-vis-span"><input type="checkbox" checked onchange="locVis(this);" name="{{location.long}}"></span> {{location.short}}: <span class="count">#</span>
+							<svg viewbox="0 0 100 100" style="height:12px; margin-left:-5px;">
+							  <circle cx="50" cy="25" r="23"/>
+							  <path d="M10 100 C 0 45, 100 45, 90 100"/>
+							</svg>
+						</label>
+					{% endfor %}
 				</div>
 				{% endif %}
 				<span style="display: block; text-align: right; width: 100%; margin-top: -30px;"><input type="text" id="filterbox" placeholder="Search &amp; Filter" onkeyup="filter(this.value, 'ordered')"></span>
