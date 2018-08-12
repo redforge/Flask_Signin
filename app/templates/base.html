@@ -19,9 +19,9 @@
 				acLight= "hsl("+( parseInt(c.split(',')[0])-30) +", "+c.split(',')[1]+", 40%)";
 				$(":root").css("--accent-color-dark" , acDark);
 				$(":root").css("--accent-color-light", acLight);
-				$("#bg").css("background", "linear-gradient(to bottom left,"+acLight+","+acDark+")");
+				$(":root").css("--background-gradient", "linear-gradient(to bottom left,"+acLight+","+acDark+")");
 			}
-			$(document).ready(function(){sc("{{accentcolor}}");});
+			sc("{{accentcolor}}");
 
 		</script>
 	</head>

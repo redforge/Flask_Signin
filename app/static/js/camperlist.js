@@ -221,8 +221,8 @@ function normalCheck(cb, changeVal=false, newVal=false, editSelect=true, isCheck
 
 //Sets all the checkboxes to the same value, called when the top box is toggled
 function checkAll(mainVal) {
-  var checkBoxes = document.forms["camperList"].elements["select-box"];
-
+  var checkBoxes = [].concat(document.forms["camperList"].elements["select-box"]);
+  console.log(checkBoxes);
   for (var i = 0; i < checkBoxes.length; i++) {
     //Set values
     cbi = checkBoxes[i];
@@ -237,7 +237,7 @@ function checkAll(mainVal) {
 
 //Grab all IDs that are currently checked/selected
 function grabIds() {
-  var checkBoxes = document.forms["camperList"].elements["select-box"];
+  var checkBoxes = [].concat(document.forms["camperList"].elements["select-box"]);
   var checkedIds = [];
   for(var i = 0; i<checkBoxes.length; i++) {
     if (checkBoxes[i].checked && checkBoxes[i].value != "") {

@@ -1,7 +1,9 @@
 # Format:
 # rolename:rolecode
 #
-# any lines starting with an octothorp are comments and are ignored
+# Any lines starting with an octothorp are comments and are ignored
 #
-admin:wearYourNameTag
-viewer:craftyView
+# Please change these from default!
+#
+admin:alpine
+viewer:view
