@@ -13,7 +13,7 @@ def get_expected_pathname():
 
 from app.configs.constants import db_directory
 
-initial_db_dir = open('data/BACKUPDATA', 'r').read()
+initial_db_dir = open('data/BACKUPDATA', 'a+').read()
 
 db_path = '[unset]'
 prev_path = '[none]'

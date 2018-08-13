@@ -6,10 +6,13 @@
 
 {% block content %}
   <div class="content-block">
-    <h1> All saved files/days </h1>
+    <h1> All Saved Snapshots & Backups </h1>
     <hr>
     {% for file in files %}
       <a href="/history?file={{ file.filename }}"><h2> {{ file.displayname }} </h2> </a>
     {% endfor %}
-  <div>
+  </div>
+  <div class="content-block" style="text-align: center;">
+    <a href="/autoredirect"><h2> Return to default page </h2> </a>
+  </div>
 {% endblock %}

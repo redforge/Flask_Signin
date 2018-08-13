@@ -13,6 +13,14 @@
 {% endblock %}
 
 {% block content %}
+	<div class="content-block">
+		<h2 style="margin:0;"> Your are viewing a snapshot of: <h2>
+		<h1 style="margin-top: -5px; margin-bottom: 20px;"> {{ titlename }} </h1>
+		<div id=footer>
+
+		<a style="color: var(--main-text-color);" href="/history/list">View full history</a>
+		<a style="color: var(--main-text-color);" href="/autoredirect">Return to default (editable) page</a> </div>
+	</div>
 	{{ chart.visblock() }}
 	<div class="content-block" id="chart-block" >
 		{{ chart.fullbody(campers, editable=false) }}

@@ -48,13 +48,14 @@ def readonly():
 	return render_template('readonly.html', campers=camper_data, locations=get_locations())
 
 
-
+from app.data.database import db_directory
 @app.route('/history/list')
 def history_list():
+	global db_directory
 	check_db()
-	from os import listdir
-	from app.data.database import db_directory
+	from os import listdir, path
 	history_list = listdir(db_directory)
+	history_list.sort(key=get_creation)
 	history_list_cut = []
 	for li in history_list:
 		li_cut = li;
@@ -62,6 +63,10 @@ def history_list():
 			li_cut = li_cut[:-4]
 		history_list_cut.append({ 'filename':li, 'displayname':li_cut })
 	return render_template('historylist.html', files=history_list_cut)
+
+def get_creation(path):
+	global db_directory
+	return os.path.getmtime(db_directory + path);
 
 @app.route('/history')
 @login_required

@@ -109,6 +109,10 @@
 		{{ chart.fullbody(campers, true, locations) }}
 	</div>
 </div>
-
-<div id=footer> <a href="/history">View History</a> | <a href="/readonly">View Read-Only</a> </div>
+<script>
+	var alertResponse = ({ target }) => {
+		alert(target.responseText)
+	};
+</script>
+<div id=footer> <a href="/history">View History</a><a onclick="var xhr = new XMLHttpRequest(); xhr.open('POST', '/api/backup'); xhr.send(); xhr.addEventListener('load', alertResponse);">Force Backup Now</a><a href="/userinfo">User Page</a></div>
 {% endblock %}

@@ -36,6 +36,8 @@ def backup_database_to(filename):
     if (prev_path == ""):
         print("No previous database found, a new one will be generated. This may happen if the BACKUPDATA file is missing or corrupt.")
         return False
+    elif (prev_path == filename):
+        print("Tried to back up to the same file!")
     else:
         print ("backing up & copying")
         from app.data.camper_editing import reset_locs

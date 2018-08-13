@@ -143,16 +143,23 @@ select:hover, select:focus {
 }
 
 #footer {
-  color: #FFF9;
   text-align: center;
-  padding: 10px;
+  padding-bottom: 8px;
 }
 #footer a {
+  display: inline-block;
   color: #FFF9;
   text-decoration: none;
+  padding: 0 10px;
+  padding-top: 2px;
 }
 #footer a:hover {
   text-decoration: underline;
+}
+#footer a:not(:last-child) {
+
+  border-right: 1px solid #FFF6;
+
 }
 
 h1 {
@@ -207,6 +214,9 @@ input[type~="text"]:hover:not(:focus), input[type~="password"]:hover:not(:focus)
 }
 
 @media only screen and (max-width: 600px) {
+  #footer {
+    padding: 10px 0;
+  }
   input[type~="text"], input[type~="password"] {
     padding: 20px;
     width: 79%;

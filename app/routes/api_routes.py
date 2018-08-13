@@ -63,29 +63,34 @@ def api_edit():
 @login_required
 def api_add():
 	if (not has_permission(current_user.role, 'write')):
-		return 'no permission'
-	else:
-		s = request.values.get('new-campers')
-		x = json.loads(s, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+		return render_template('denied.html')
 
-		i = 0
-		for c in x:
-			add_camper(offset = i, commit=False, firstname=c.firstname, lastname=c.lastname, nickname=c.nickname, location=c.location, note=c.note)
-			i += 1
-		db_session.commit()
-		return 'success'
+	s = request.values.get('new-campers')
+	x = json.loads(s, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 
-@app.route('/api/backup')
+	i = 0
+	for c in x:
+		add_camper(offset = i, commit=False, firstname=c.firstname, lastname=c.lastname, nickname=c.nickname, location=c.location, note=c.note)
+		i += 1
+	db_session.commit()
+	return 'success'
+
+@app.route('/api/backup', methods = ['POST'])
 @app.route('/forcebackup')
 @login_required
 def backup_db_route():
-	if (has_permission(current_user.role, 'administrate')):
-		from app.data.camper_editing import backup_database
-		filename = backup_database()
-		reset_locs()
-		return 'Backed up as \"{}\" in serverside data folder'.format(filename)
-	else:
+	if (not has_permission(current_user.role, 'administrate')):
 		return render_template('denied.html')
+
+	global db_path
+	from shutil import copy2
+	from app.data.database import db_path, db_directory
+	from app.data.get_time import get_timedate
+
+	copy2 (db_path, db_directory + get_timedate())
+
+	return 'Backed up as \"{}\"'.format(get_timedate())
+
 
 @app.route('/api/curname')
 @login_required
