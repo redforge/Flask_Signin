@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "camperlist.html" as chart %}
+{% import "tokenbox.html" as tokenbox %}
+
+{% block head %}
+	<title>Previous Record - {{ titlename }}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewdb.css') }}">
+	{{ chart.head() }}
+	<script async src="{{ url_for('static', filename='js/filter.js') }}"></script>
+	<script async src="{{ url_for('static', filename='js/lib/fuse.min.js') }}"></script>
+
+	<script src="{{ url_for('static', filename='js/viewdb.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	{{ chart.visblock() }}
+	<div class="content-block" id="chart-block" >
+		{{ chart.fullbody(campers, editable=false) }}
+	</div>
+
+	</div>
+{% endblock %}

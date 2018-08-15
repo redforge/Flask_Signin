@@ -16,24 +16,29 @@ def check_db():
     if (not db_exists()):
         print('DB Check: No database found. Making a new one...')
         init_db()
-        #from app.data.camper_editing import reset_locs
+        from app.data.camper_editing import reset_locs
         reset_locs()
 
 def backup_database_to(filename):
     global db_path
     from shutil import copy2
     s = open('data/BACKUPDATA', 'a+')
-    prevPath = s.read()
+    s.seek(0)
+    prev_path = s.read()
     set_path(filename)
 
     db_path = filename #this line is a crude fix for some messy scoping
 
+    s.truncate(0)
+    s.seek(0)
     s.write(filename)
 
-    if (prevPath == ""):
+    if (prev_path == ""):
         print("No previous database found, a new one will be generated. This may happen if the BACKUPDATA file is missing or corrupt.")
         return False
     else:
-        copy2('.'+prevPath, filename)
+        print ("backing up & copying")
+        from app.data.camper_editing import reset_locs
+        copy2(prev_path, filename)
         reset_locs()
         return filename

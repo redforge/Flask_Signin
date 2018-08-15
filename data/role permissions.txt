@@ -3,5 +3,5 @@
 #
 # any lines starting with an octothorp are comments and are ignored
 #
-admin:read:write:administrate
+admin:read:write:administrate:readhistory
 viewer:read

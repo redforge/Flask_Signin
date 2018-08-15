@@ -67,7 +67,7 @@ def change_user_color_lol():
 @app.route('/login')
 def login_page():
     if current_user.is_authenticated:
-        return redirect('/autoredirect', code=302)
+        return redirect('/autoredirect')
 
     return(render_template('loginpage.html') )
 

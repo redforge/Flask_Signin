@@ -142,6 +142,19 @@ select:hover, select:focus {
   text-decoration: underline;
 }
 
+#footer {
+  color: #FFF9;
+  text-align: center;
+  padding: 10px;
+}
+#footer a {
+  color: #FFF9;
+  text-decoration: none;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+
 h1 {
     margin-top: 5px;
 }

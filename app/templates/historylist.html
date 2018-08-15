@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title> History </title>
+{% endblock %}
+
+{% block content %}
+  <div class="content-block">
+    <h1> All saved files/days </h1>
+    <hr>
+    {% for file in files %}
+      <a href="/history?file={{ file.filename }}"><h2> {{ file.displayname }} </h2> </a>
+    {% endfor %}
+  <div>
+{% endblock %}

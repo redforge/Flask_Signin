@@ -11,9 +11,9 @@ def get_expected_pathname():
 
     return db_directory + get_date() + '.sql'
 
-db_directory = 'data/'
+from app.configs.constants import db_directory
 
-initial_db_dir = open('data/BACKUPDATA', 'a+').read()
+initial_db_dir = open('data/BACKUPDATA', 'r').read()
 
 db_path = '[unset]'
 prev_path = '[none]'

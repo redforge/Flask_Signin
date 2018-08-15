@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request
 from app import app
 from sqlalchemy import Column, Integer, String
 from app.data.database import Base, db_session
